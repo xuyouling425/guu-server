@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="D:\Repositories\Maven\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+	<context id="guucms">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/guucms?characterEncoding=utf8"
+			userId="root" password="root" />
+
+		<javaModelGenerator targetPackage="cn.net.guu.system.model"
+			targetProject="guu-cms" />
+		<sqlMapGenerator targetPackage="cn.net.guu.system.mappers"
+			targetProject="guu-cms" />
+		<javaClientGenerator targetPackage="cn.net.guu.system.mappers"
+			targetProject="guu-cms" type="XMLMAPPER" />
+
+		<table tableName="guu_sys_authority" domainObjectName="SysAuthority"></table>
+		<table tableName="guu_sys_authority_resources" domainObjectName="SysAuthorityResources"></table>
+		<table tableName="guu_sys_role_authority" domainObjectName="SysRoleAuthority"></table>
+		<!--<table tableName="guu_sys_access" domainObjectName="SysAccess"> </table> 
+			<table tableName="guu_sys_access_resources" domainObjectName="SysAccessResources"></table> 
+			<table tableName="guu_sys_resources" domainObjectName="SysResources"></table> 
+			<table tableName="guu_sys_role" domainObjectName="SysRole"></table> <table 
+			tableName="guu_sys_role_access" domainObjectName="SysRoleAccess"></table> 
+			<table tableName="guu_sys_role_resources" domainObjectName="SysRoleResources"></table> 
+			<table tableName="guu_sys_user" domainObjectName="SysUser"></table> <table 
+			tableName="guu_sys_user_role" domainObjectName="SysUserRole"></table> -->
+	</context>
+</generatorConfiguration>
