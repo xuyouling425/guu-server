@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.system.model.SysRole;
 import cn.net.guu.system.model.SysUser;
@@ -57,4 +59,14 @@ public class SysUserController {
 		return returnUrl;
 						
 	}
+	
+	@RequestMapping(value="/hello")
+	public ModelAndView hello(){
+		
+		ModelAndView mv = new ModelAndView("hello");
+		mv.addObject("title","frist ftl");
+		mv.addObject("content", "hello ftl");
+		return mv;
+	}
+	
 }
