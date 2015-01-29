@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +30,7 @@ import cn.net.guu.system.service.SysUserService;
 
 
 @Controller
-@RequestMapping("/admin/user")
+@RequestMapping("/user")
 public class SysUserController {
 	
 	/**
@@ -45,28 +46,55 @@ public class SysUserController {
 	private SysRoleService roleService;
 	
 	/**
-	 * 用户登录
+	 * 跳转到用户登录页
 	 * 只允许post提交的登录请求
 	* <p>Title: login</p>
 	* <p>Description: </p>
 	* @param request
 	* @return
 	 */
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(SysUser loginUser,HttpServletRequest request){
-	
-		String returnUrl = "redirect:/admin/index.jsp";		
-		return returnUrl;
-						
+	@RequestMapping(value="/login")
+	public ModelAndView login(){
+		return new ModelAndView("admin/login");
 	}
 	
-	@RequestMapping(value="/hello")
-	public ModelAndView hello(){
+	/**
+	 * 后台用户登录
+	 * 只允许post提交的登录请求
+	* <p>Title: login</p>
+	* <p>Description: </p>
+	* @param request
+	* @return
+	 */
+	@RequestMapping(value="/loginin",method=RequestMethod.POST)
+	public String loginin(SysUser loginUser,HttpServletRequest request){
+		//默认后台登录成功跳转页面
+		String returnUrl = "redirect:/server/index.jsp";
 		
-		ModelAndView mv = new ModelAndView("hello");
-		mv.addObject("title","frist ftl");
-		mv.addObject("content", "hello ftl");
-		return mv;
+		try {
+			SysUser user = userService.userLogin(loginUser.getLoginName(), loginUser.getLoginPassword());
+			if(user==null){
+				//登录失败，到登录页面
+				returnUrl = "redirect:/server/login.jsp";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnUrl;						
+	}
+	
+	/**
+	 * 后台用户退出
+	* <p>Title: logout</p>
+	* <p>Description: </p>
+	* @param request
+	* @return
+	 */
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+		return  "redirect:/server/login.jsp";
 	}
 	
 }
