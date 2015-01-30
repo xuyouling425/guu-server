@@ -76,4 +76,8 @@ public interface ICommonKey {
 	 */
 	public String DATE_FORMAR_YYYYMMDDHHmmsss ="YYYYDDDDHHmmsss";
 
+	/**
+	 * 用户sessionID
+	 */
+	public String SESSION_LOGIN_NAME = "SESSION_LOGIN_NAME";
 }

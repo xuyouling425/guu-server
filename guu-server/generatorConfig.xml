@@ -7,17 +7,19 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/guucms?characterEncoding=utf8"
 			userId="root" password="root" />
-		<javaModelGenerator targetPackage="cn.net.guu.system.model"
-			targetProject="guu-cms" />
-		<sqlMapGenerator targetPackage="cn.net.guu.system.mappers"
-			targetProject="guu-cms" />
-		<javaClientGenerator targetPackage="cn.net.guu.system.mappers"
-			targetProject="guu-cms" type="XMLMAPPER" />
+		<javaModelGenerator targetPackage="cn.net.guu.cms.model"
+			targetProject="guu-server" />
+		<sqlMapGenerator targetPackage="cn.net.guu.cms.mappers"
+			targetProject="guu-server" />
+		<javaClientGenerator targetPackage="cn.net.guu.cms.mappers"
+			targetProject="guu-server" type="XMLMAPPER" />
 
-		<table tableName="guu_sys_authority" domainObjectName="SysAuthority"></table>
+		<table tableName="guu_cms_about" domainObjectName="About"></table>
+
+		<!--<table tableName="guu_sys_authority" domainObjectName="SysAuthority"></table>
 		<table tableName="guu_sys_authority_resources" domainObjectName="SysAuthorityResources"></table>
 		<table tableName="guu_sys_role_authority" domainObjectName="SysRoleAuthority"></table>
-		<!--<table tableName="guu_sys_access" domainObjectName="SysAccess"> </table> 
+		<table tableName="guu_sys_access" domainObjectName="SysAccess"> </table> 
 			<table tableName="guu_sys_access_resources" domainObjectName="SysAccessResources"></table> 
 			<table tableName="guu_sys_resources" domainObjectName="SysResources"></table> 
 			<table tableName="guu_sys_role" domainObjectName="SysRole"></table> <table 
