@@ -1,110 +1,51 @@
 package cn.net.guu.core.utils;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
-
-import cn.net.guu.core.config.CommonKey;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * 基础工具类
- * 处理和字符串有关的
- * <p>Title: StringUtils</p>
- * <p>Description: </p>
- * <p>Company: www.guu.net.cn</p>
+ * 基础工具类 处理和字符串有关的
+ * <p>
+ * Title: StringUtils
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Company: www.guu.net.cn
+ * </p>
+ * 
  * @author xurz
  * @date 2014年7月24日
  */
-public class StringTools {
+public class CommonUtils
+{
 
 	/**
-	 * 判断字符串是否为数字。true为数字
+	 * 判定结果集为空
+	 * <p>
+	 * Title: isEmpty
+	 * </p>
 	 * 
-	 * @Authod xurz
-	 * @param str
-	 * @return
+	 * @param collection
 	 * @return
 	 */
-
-	public static boolean isNumeric(String str) {
-		if (str == null || "".equals(str.trim())) {
-			return false;
-		}
-		Pattern pattern = Pattern.compile("[0-9]*");
-		if (pattern.matcher(str).matches()) {
-			Long num = Long.parseLong(str);
-			if (num < 2147483647) {
-				return true;
-			}
-		}
-		return false;
+	public static boolean isEmpty(Collection<?> collection)
+	{
+		return null == collection || collection.size() == 0;
 	}
-
-	/**
-	 * 字符串不为null、空
-	 * 
-	 * @Authod xurz
-	 * @param str
-	 * @return
-	 */
-	public static boolean notEmpty(String str) {
-		if (str == null ){
-			return false;
-		}
-		if(str.length()==0){
-			return false;
-		}
-		if("".equals(str)){
-			return false;
-		}
-		if("null".equals(str)){
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * 集合不为null、空
-	 * 
-	 * @Authod xurz
-	 * @param str
-	 * @return
-	 */
-	public static boolean notEmpty(List<?> list) {
-		if (list == null) {
-			return false;
-		}
-		if(list.size()==0){
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * 字符串为null、空
-	 * 
-	 * @Authod xurz
-	 * @param str
-	 * @return
-	 */
-	public static boolean isEmpty(String str) {
-		if (str == null || "".equals(str) || str.isEmpty()) {
-			return true;
-		}
-		return false;
-	}
-
 
 	/**
 	 * HTML转换成字符格式
+	 * 
 	 * @Authod xurz
 	 * @param inputString
 	 * @return
 	 */
-	public static String html2Text(String inputString) {
+	public static String html2Text(String inputString)
+	{
 		String htmlStr = inputString; // 含html标签的字符串
 		String textStr = "";
 		java.util.regex.Pattern p_script;
@@ -113,7 +54,8 @@ public class StringTools {
 		java.util.regex.Matcher m_style;
 		java.util.regex.Pattern p_html;
 		java.util.regex.Matcher m_html;
-		try {
+		try
+		{
 			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>"; // 定义script的正则表达式{或<script>]*?>[\s\S]*?<\/script>
 			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>"; // 定义style的正则表达式{或<style>]*?>[\s\S]*?<\/style>
 			String regEx_html = "<[^>]+>"; // 定义HTML标签的正则表达式
@@ -130,7 +72,8 @@ public class StringTools {
 
 			htmlStr = m_html.replaceAll(""); // 过滤html标签
 			textStr = htmlStr;
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.err.println("Html2Text: " + e.getMessage());
 		}
 		return textStr;
@@ -138,23 +81,26 @@ public class StringTools {
 
 	/**
 	 * 去除HTML textarea 换行
+	 * 
 	 * @Authod xurz
-	 * @param textarea 内容
+	 * @param textarea
+	 *            内容
 	 * @return
 	 */
-	public static String spaceTextArea(String textarea) {
-		if(textarea ==null)
+	public static String spaceTextArea(String textarea)
+	{
+		if (textarea == null)
 			return "";
 		StringBuffer out = new StringBuffer();
 		int length = textarea.length();
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++)
+		{
 			char c = textarea.charAt(i);
-			if(!Character.isWhitespace(c))
+			if (!Character.isWhitespace(c))
 				out.append(c);
 		}
 		return out.toString();
 	}
-
 
 	/**
 	 * 把阿拉伯数字翻译成中文大写数字
@@ -163,9 +109,11 @@ public class StringTools {
 	 * @param n
 	 * @return
 	 */
-	public static String toChineseNumberCase(int n) {
+	public static String toChineseNumberCase(int n)
+	{
 		String chineseNumber = "";
-		switch (n) {
+		switch (n)
+		{
 		case 0:
 			chineseNumber = "零";
 			break;
@@ -201,21 +149,36 @@ public class StringTools {
 		}
 		return chineseNumber;
 	}
+
+	/**
+	 * 获得唯一主键 若前缀不为空，则主键：前缀+系统时间+3位随机数 前缀为空或前缀长度超过10位：系统时间+3位随机数
+	 * <p>
+	 * Title: getPrimaryKey
+	 * </p>
+	 * 
+	 * @param prefix
+	 *            前缀，前缀长度不能大于10
+	 * @return
+	 */
+	public static String getPrimaryKey(String prefix)
+	{
+		String priKey = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
+		if (StringUtils.isEmpty(prefix) || prefix.length() > 10)
+		{
+			priKey = prefix + priKey;
+		}
+		return priKey;
+	}
 	
 	/**
 	 * 获得唯一主键
-	 * 主键有前缀+当前时间+随机数
+	 * 主键：系统时间+3为随机数
 	* <p>Title: getPrimaryKey</p>
-	* <p>Description: </p>
 	* @return
 	 */
-	public static String getPrimaryKey() {		
-		SimpleDateFormat sdf = new SimpleDateFormat(CommonKey.DATE_FORMAR_YYYYMMDDHHmmsss);
-		//日期
-		String current = sdf.format(new Date());
-		//随机数
-		double random = Math.random()*1000+1000;
-		return CommonKey.PREFIX+current+random;
+	public static String getPrimaryKey()
+	{
+		return  System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
 	}
 
 }

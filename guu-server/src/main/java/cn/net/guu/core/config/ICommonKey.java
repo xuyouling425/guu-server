@@ -58,7 +58,7 @@ public interface ICommonKey {
 	/**
 	 * 前缀
 	 */
-	public String PREFIX = "GUU";
+	public String GUU = "GUU";
 	
 	/**
 	 * 日期转换格式 “YYYY-MM-DD”

@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.cms.model.About;
 import cn.net.guu.cms.service.AboutService;
+import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.utils.CommonUtils;
+import cn.net.guu.core.utils.UploadUtils;
 
 /**
  * about 控制器
@@ -50,11 +53,19 @@ public class AboutController
 	@RequestMapping("/addModify")
 	public ModelAndView addModify(HttpServletRequest request, About about)
 	{
+		ModelAndView mav = new ModelAndView("admin/about");
+//		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+//		// 判断 request 是否有文件上传,即多部分请求
+//		if (multipartResolver.isMultipart(request))
+//		{
+			UploadUtils.uploadFiles(request, CommonKey.getWebroot() + "/resources/images/uploads/");
+//		}
 		try
 		{
 			// 判定aboutId是否为空,aboutId为空，添加一条数据
 			if (StringUtils.isEmpty(about.getAboutId()))
 			{
+				about.setAboutId(CommonUtils.getPrimaryKey());
 				aboutService.addSelective(about);
 			} else
 			{
@@ -62,13 +73,14 @@ public class AboutController
 				aboutService.updateBypkSelective(about);
 			}
 
+			mav.addObject("about", about);
 		} catch (Exception e)
 		{
 			// TODO: handle exception
 			return new ModelAndView("admin/error");
 		}
 
-		return new ModelAndView("admin/about");
+		return mav;
 	}
 
 	/**
@@ -85,17 +97,18 @@ public class AboutController
 	{
 		// 创建一个about对象
 		About about = new About();
-		ModelAndView maw = new ModelAndView("admin/about");
+		ModelAndView mav = new ModelAndView("admin/about");
 		try
 		{
 			@SuppressWarnings("unchecked")
 			List<About> aboutList = (List<About>) aboutService.selectByExample(null);
-			//如果获得aboutList集合不为空，则去第一个about消息
+			// 如果获得aboutList集合不为空，则去第一个about消息
 			if (null != aboutList && aboutList.size() > 0)
 			{
 				about = aboutList.get(0);
 			}
-			maw.addObject("about", about);
+
+			mav.addObject("about", about);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -103,6 +116,6 @@ public class AboutController
 			return new ModelAndView("admin/error");
 		}
 
-		return maw;
+		return mav;
 	}
 }

@@ -1,5 +1,7 @@
 package cn.net.guu.cms.service.impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import cn.net.guu.cms.mappers.AboutMapper;
@@ -35,7 +37,8 @@ public class AboutServiceImpl extends BaseServiceImpl implements AboutService
 	{
 		return aboutMapper;
 	}
-
+	
+	@Resource
 	public void setAboutMapper(AboutMapper aboutMapper)
 	{
 		super.mapper = aboutMapper;

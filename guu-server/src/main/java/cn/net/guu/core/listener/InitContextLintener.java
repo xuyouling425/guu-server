@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 
 import cn.net.guu.core.config.CommonKey;
 import cn.net.guu.core.spring.SpringContextHolder;
-import cn.net.guu.core.utils.StringTools;
+import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.system.model.SysResources;
 import cn.net.guu.system.service.SysResourcesService;
 
@@ -39,6 +39,7 @@ public class InitContextLintener implements ServletContextListener {
 	/**
 	 * web容器启动时候调用
 	 */
+	@SuppressWarnings("unchecked")
 	public void contextInitialized(ServletContextEvent event) {
 		//项目部署路径
 		CommonKey.setWebroot(event.getServletContext().getRealPath("/"));
@@ -55,7 +56,7 @@ public class InitContextLintener implements ServletContextListener {
 		try {
 			//获得数据库中所有的资源信息
 			List<SysResources> resourcesList = (List<SysResources>) resourcesService.selectByExample(null);
-			if(StringTools.notEmpty(resourcesList)){
+			if(!CommonUtils.isEmpty(resourcesList)){
 				for(SysResources resources:resourcesList){					
 					CommonKey.ResourcesMap.put(resources.getResourcesUrl(), resources);
 				}
