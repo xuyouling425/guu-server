@@ -1,5 +1,7 @@
 package cn.net.guu.core.spring;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -16,12 +18,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class SpringContextHolder implements ApplicationContextAware {
 	
+
+	/**
+	 * log日志
+	 */
+	private static Log log = LogFactory.getLog(SpringContextHolder.class);
+	
+	/**
+	 * applicationContext 上下文
+	 */
 	private static ApplicationContext applicationContext;
 
 	public void setApplicationContext(ApplicationContext ac)
 			throws BeansException {
-		System.out.println(".............guu-cms init success....");
 		applicationContext = ac;
+		log.info("##########Srping applicationContext init successfully.");
 	}
 
 	/**

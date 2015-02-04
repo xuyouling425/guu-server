@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 基础工具类 处理和字符串有关的
@@ -22,6 +24,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CommonUtils
 {
+
+	/**
+	 * log日志
+	 */
+	private static Log log = LogFactory.getLog(CommonUtils.class);
 
 	/**
 	 * 判定结果集为空
@@ -167,18 +174,24 @@ public class CommonUtils
 		{
 			priKey = prefix + priKey;
 		}
+		log.info("##########Generated primary key is [" + priKey + "]");
 		return priKey;
 	}
-	
+
 	/**
-	 * 获得唯一主键
-	 * 主键：系统时间+3为随机数
-	* <p>Title: getPrimaryKey</p>
-	* @return
+	 * 获得唯一主键 主键：系统时间+3为随机数
+	 * <p>
+	 * Title: getPrimaryKey
+	 * </p>
+	 * 
+	 * @return
 	 */
 	public static String getPrimaryKey()
 	{
-		return  System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
+		String pk = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
+		log.info("##########Generated primary key is [" + pk + "]");
+		return pk;
+
 	}
 
 }

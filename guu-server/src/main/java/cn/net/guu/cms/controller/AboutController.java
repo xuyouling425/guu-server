@@ -7,9 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cn.net.guu.cms.model.About;
 import cn.net.guu.cms.service.AboutService;
@@ -37,6 +42,11 @@ import cn.net.guu.core.utils.UploadUtils;
 public class AboutController
 {
 
+	/**
+	 * log日志
+	 */
+	private static Log log = LogFactory.getLog(AboutController.class);
+
 	@Resource(name = "aboutServiceImpl")
 	private AboutService aboutService;
 
@@ -54,12 +64,12 @@ public class AboutController
 	public ModelAndView addModify(HttpServletRequest request, About about)
 	{
 		ModelAndView mav = new ModelAndView("admin/about");
-//		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-//		// 判断 request 是否有文件上传,即多部分请求
-//		if (multipartResolver.isMultipart(request))
-//		{
-			UploadUtils.uploadFiles(request, CommonKey.getWebroot() + "/resources/images/uploads/");
-//		}
+		// CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		// // 判断 request 是否有文件上传,即多部分请求
+		// if (multipartResolver.isMultipart(request))
+		// {
+		UploadUtils.uploadFiles(request, CommonKey.getWebroot() + "/resources/images/uploads/");
+		// }
 		try
 		{
 			// 判定aboutId是否为空,aboutId为空，添加一条数据
@@ -95,6 +105,7 @@ public class AboutController
 	@RequestMapping("selAbout")
 	public ModelAndView selAbout(HttpServletRequest request)
 	{
+		log.info("##########Entering selAbout().");
 		// 创建一个about对象
 		About about = new About();
 		ModelAndView mav = new ModelAndView("admin/about");
@@ -107,15 +118,19 @@ public class AboutController
 			{
 				about = aboutList.get(0);
 			}
-
+			log.info("##########The about=[" + new ObjectMapper().writeValueAsString(about) + "]");
 			mav.addObject("about", about);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("##########Select about Faild.", e);
 			return new ModelAndView("admin/error");
+		} catch (JsonProcessingException e)
+		{
+			// TODO Auto-generated catch block
+			log.error("##########JSON formart about to String faild.", e);
 		}
-
+		log.info("##########Exiting selAbout().");
 		return mav;
 	}
 }
