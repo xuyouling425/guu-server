@@ -40,11 +40,11 @@ public class MyFreeMarkerView extends FreeMarkerView
 	protected void exposeHelpers(Map<String, Object> model, HttpServletRequest request) throws Exception
 	{
 		// TODO Auto-generated method stub
-		log.info("##########Entering exposeHelpers().");
+		log.info("Entering exposeHelpers().");
 		model.put(CONTENT_PATH, request.getContextPath());
-		log.info("##########Set FreeMarkerView base=[" + request.getContextPath() + "] successfully");
+		log.info("Set FreeMarkerView base=[" + request.getContextPath() + "] successfully");
 		super.exposeHelpers(model, request);
-		log.info("##########Exiting exposeHelpers().");
+		log.info("Exiting exposeHelpers().");
 	}
 
 }

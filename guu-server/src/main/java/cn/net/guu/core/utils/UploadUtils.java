@@ -53,8 +53,8 @@ public class UploadUtils
 	 */
 	public static List<String> uploadFiles(HttpServletRequest request, String filePath)
 	{
-		log.info("##########Entering uploadFiles().");
-		log.info("##########Upload file path:[" + filePath + "]");
+		log.info("Entering uploadFiles().");
+		log.info("Upload file path:[" + filePath + "]");
 		List<String> imgList = new ArrayList<String>();
 		// 创建一个通用的多部分解析器
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
@@ -73,7 +73,7 @@ public class UploadUtils
 				{
 					// 取得当前上传文件的文件名称
 					String myFileName = file.getOriginalFilename();
-					log.info("##########Uploading file name:[" + myFileName + "]");
+					log.info("Uploading file name:[" + myFileName + "]");
 					// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
 					if (myFileName.trim() != "")
 					{
@@ -88,21 +88,21 @@ public class UploadUtils
 							// 传输成功后，将文件所对应的相对路径放入list集合
 							imgList.add(path);
 							
-							log.info("##########Uploading file successfully.File local path:[" + localFile + "]");
+							log.info("Uploading file successfully.File local path:[" + localFile + "]");
 						} catch (IllegalStateException e)
 						{
 							// TODO Auto-generated catch block
-							log.error("##########upload faild.", e);
+							log.error("upload faild.", e);
 						} catch (IOException e)
 						{
 							// TODO Auto-generated catch block
-							log.error("##########upload faild.", e);
+							log.error("upload faild.", e);
 						}
 					}
 				}
 			}
 		}
-		log.info("##########Exiting uploadFiles().");
+		log.info("Exiting uploadFiles().");
 		return imgList;
 	}
 }

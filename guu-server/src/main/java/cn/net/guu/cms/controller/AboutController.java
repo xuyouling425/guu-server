@@ -105,7 +105,7 @@ public class AboutController
 	@RequestMapping("selAbout")
 	public ModelAndView selAbout(HttpServletRequest request)
 	{
-		log.info("##########Entering selAbout().");
+		log.info("Entering selAbout().");
 		// 创建一个about对象
 		About about = new About();
 		ModelAndView mav = new ModelAndView("admin/about");
@@ -118,19 +118,19 @@ public class AboutController
 			{
 				about = aboutList.get(0);
 			}
-			log.info("##########The about=[" + new ObjectMapper().writeValueAsString(about) + "]");
+			log.info("The about=[" + new ObjectMapper().writeValueAsString(about) + "]");
 			mav.addObject("about", about);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("##########Select about Faild.", e);
+			log.error("Select about Faild.", e);
 			return new ModelAndView("admin/error");
 		} catch (JsonProcessingException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("##########JSON formart about to String faild.", e);
+			log.error("JSON formart about to String faild.", e);
 		}
-		log.info("##########Exiting selAbout().");
+		log.info("Exiting selAbout().");
 		return mav;
 	}
 }

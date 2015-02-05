@@ -45,8 +45,8 @@ public class SystemHandlerInterceptorAdapter extends HandlerInterceptorAdapter
 		String uri = request.getRequestURI();
 		String url = request.getRequestURL().toString();
 
-		log.info("##########Entering preHandle().");
-		log.info("##########Request uri=[" + uri + "] \n url=[" + url + "]");
+		log.info("Entering preHandle().");
+		log.info("Request uri=[" + uri + "] \n url=[" + url + "]");
 		// HttpSession session = request.getSession(false); //获取session，没有返回null
 		/*
 		 * //当不是资源文件夹 if(uri.indexOf("/resources/")<0){
@@ -73,7 +73,7 @@ public class SystemHandlerInterceptorAdapter extends HandlerInterceptorAdapter
 		// 直接转向页面
 		// request.getRequestDispatcher("/index.jsp").forward(request, response);
 
-		log.info("##########Exiting preHandle().");
+		log.info("Exiting preHandle().");
 		return super.preHandle(request, response, handler);
 	}
 

@@ -174,7 +174,7 @@ public class CommonUtils
 		{
 			priKey = prefix + priKey;
 		}
-		log.info("##########Generated primary key is [" + priKey + "]");
+		log.info("Generated primary key is [" + priKey + "]");
 		return priKey;
 	}
 
@@ -189,7 +189,7 @@ public class CommonUtils
 	public static String getPrimaryKey()
 	{
 		String pk = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
-		log.info("##########Generated primary key is [" + pk + "]");
+		log.info("Generated primary key is [" + pk + "]");
 		return pk;
 
 	}

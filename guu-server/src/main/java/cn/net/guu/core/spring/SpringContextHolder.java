@@ -32,7 +32,7 @@ public class SpringContextHolder implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext ac)
 			throws BeansException {
 		applicationContext = ac;
-		log.info("##########Srping applicationContext init successfully.");
+		log.info("Srping applicationContext init successfully.");
 	}
 
 	/**
