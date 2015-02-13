@@ -13,14 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import cn.net.guu.cms.model.About;
 import cn.net.guu.cms.service.AboutService;
 import cn.net.guu.core.config.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * about 控制器
@@ -63,13 +63,14 @@ public class AboutController
 	@RequestMapping("/addModify")
 	public ModelAndView addModify(HttpServletRequest request, About about)
 	{
+		log.info("Entering addModify().");
 		ModelAndView mav = new ModelAndView("admin/about");
-		// CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-		// // 判断 request 是否有文件上传,即多部分请求
-		// if (multipartResolver.isMultipart(request))
-		// {
-		UploadUtils.uploadFiles(request, CommonKey.getWebroot() + "/resources/images/uploads/");
-		// }
+		List<String> imgList = UploadUtils.uploadFiles(request,CommonKey.UPLOAD_IMAGE_PATH);
+		// 上传成功，返回image路径设置为about的图片路径
+		if (!CommonUtils.isEmpty(imgList))
+		{
+			about.setImagePath(imgList.get(0));
+		}
 		try
 		{
 			// 判定aboutId是否为空,aboutId为空，添加一条数据
@@ -84,12 +85,14 @@ public class AboutController
 			}
 
 			mav.addObject("about", about);
+			log.info("The current about=[" + new ObjectMapper().writeValueAsString(about) + "]");
 		} catch (Exception e)
 		{
+			log.error("Add or modify about faild.", e);
 			// TODO: handle exception
 			return new ModelAndView("admin/error");
 		}
-
+		log.info("Exiting addModify().");
 		return mav;
 	}
 
@@ -102,7 +105,7 @@ public class AboutController
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("selAbout")
+	@RequestMapping("/selAbout")
 	public ModelAndView selAbout(HttpServletRequest request)
 	{
 		log.info("Entering selAbout().");
@@ -118,17 +121,13 @@ public class AboutController
 			{
 				about = aboutList.get(0);
 			}
-			log.info("The about=[" + new ObjectMapper().writeValueAsString(about) + "]");
+			log.info("The current about is " + about + "");
 			mav.addObject("about", about);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			log.error("Select about Faild.", e);
 			return new ModelAndView("admin/error");
-		} catch (JsonProcessingException e)
-		{
-			// TODO Auto-generated catch block
-			log.error("JSON formart about to String faild.", e);
 		}
 		log.info("Exiting selAbout().");
 		return mav;

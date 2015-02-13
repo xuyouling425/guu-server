@@ -6,7 +6,7 @@ import java.util.List;
 import cn.net.guu.core.mappers.BaseExample;
 
 /**
- * 抽象接口方法
+ * 抽象出通用增加，删除，查询，修改的接口方法
 * <p>Title: BaseService</p>
 * <p>Description: </p>
 * <p>Company: www.guyuu.com</p>

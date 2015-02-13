@@ -14,9 +14,10 @@
 		<javaClientGenerator targetPackage="cn.net.guu.cms.mappers"
 			targetProject="guu-server" type="XMLMAPPER" />
 
-		<table tableName="guu_cms_about" domainObjectName="About"></table>
-
-		<!--<table tableName="guu_sys_authority" domainObjectName="SysAuthority"></table>
+		<table tableName="guu_cms_business" domainObjectName="Business"></table>
+		
+		<!--<table tableName="guu_cms_about" domainObjectName="About"></table>
+		<table tableName="guu_sys_authority" domainObjectName="SysAuthority"></table>
 		<table tableName="guu_sys_authority_resources" domainObjectName="SysAuthorityResources"></table>
 		<table tableName="guu_sys_role_authority" domainObjectName="SysRoleAuthority"></table>
 		<table tableName="guu_sys_access" domainObjectName="SysAccess"> </table> 

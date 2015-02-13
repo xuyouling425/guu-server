@@ -88,4 +88,13 @@ public interface ICommonKey
 	 */
 	public String SESSION_LOGIN_NAME = "SESSION_LOGIN_NAME";
 
+	/**
+	 * 图片上传路径
+	 */
+	public String UPLOAD_IMAGE_PATH = "resources/uploads/images/";
+	
+	/**
+	 * 默认文件上传路径
+	 */
+	public String UPLOAD_DEFAULT_PATH = "resources/uploads/default/";
 }

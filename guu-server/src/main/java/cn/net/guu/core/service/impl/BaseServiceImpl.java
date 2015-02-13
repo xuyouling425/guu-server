@@ -14,7 +14,7 @@ import cn.net.guu.core.mappers.BaseMapper;
 import cn.net.guu.core.service.BaseService;
 
 /**
- * 实现基础 的方法，通用的CRUD
+ * 实现BaseService基础 的方法，通用的  新增，修改，查询，删除的实现
  * <p>
  * Title: BaseServiceImpl
  * </p>

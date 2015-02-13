@@ -320,4 +320,14 @@ public class About {
     public void setCompanyDesc(String companyDesc) {
         this.companyDesc = companyDesc;
     }
+
+	@Override
+	public String toString()
+	{
+		return "About [aboutId=" + aboutId + ", companyName=" + companyName + ", companyEn=" + companyEn + ", companyAddress=" + companyAddress
+				+ ", imagePath=" + imagePath + ", contactPerson=" + contactPerson + ", companyEmail=" + companyEmail + ", companyFax=" + companyFax
+				+ ", companyPhone=" + companyPhone + ", companyDesc=" + companyDesc + "]";
+	}
+    
+    
 }
