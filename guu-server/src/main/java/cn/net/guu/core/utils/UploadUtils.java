@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import cn.net.guu.cms.controller.AboutController;
 import cn.net.guu.core.config.CommonKey;
 
 /**
@@ -34,13 +36,15 @@ import cn.net.guu.core.config.CommonKey;
  * @author xurz
  * @date 2015年2月3日
  */
+@Controller
+@RequestMapping("/upload")
 public class UploadUtils
 {
 
 	/**
 	 * log日志
 	 */
-	private static Log log = LogFactory.getLog(AboutController.class);
+	private static Log log = LogFactory.getLog(UploadUtils.class);
 
 	/**
 	 * 通过spring解析器上传文件,返回上传后的文件结果集
@@ -79,7 +83,7 @@ public class UploadUtils
 					{
 						// 取得当前上传文件的文件名称
 						String myFileName = file.getOriginalFilename();
-						
+
 						// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
 						if (myFileName.trim() != "")
 						{
@@ -122,11 +126,29 @@ public class UploadUtils
 	 * </p>
 	 * 
 	 * @param request
-	 * @return
+	 * @return 文件上传路径后的结果集
 	 */
 	public static List<String> uploadFiles(HttpServletRequest request)
 	{
 		return uploadFiles(request, CommonKey.UPLOAD_DEFAULT_PATH);
+	}
+
+	/**
+	 * 上传文件，上传到默认的文件路径
+	 * <p>
+	 * Title: uploadFiles
+	 * </p>
+	 * 
+	 * @param request
+	 * @return 返回文件上传后的第一个文件的路径
+	 */
+
+	@ResponseBody
+	@RequestMapping("/uploadImg")
+	public static String uploadImg(HttpServletRequest request)
+	{
+		List<String> imgList = uploadFiles(request, CommonKey.UPLOAD_IMAGE_PATH);
+		return CommonUtils.isEmpty(imgList) ? "" : imgList.get(0);
 	}
 
 	/**
@@ -153,7 +175,7 @@ public class UploadUtils
 			// 如果"_" 前面是一个数字，则去掉数字,重新添加数据
 			if (Pattern.matches("\\d+", namePrefix))
 			{
-				//在之前的前缀数字+1
+				// 在之前的前缀数字+1
 				fileName = (NumberUtils.toInt(namePrefix) + 1) + fileName.substring(fileName.indexOf("_"));
 			} else
 			{
