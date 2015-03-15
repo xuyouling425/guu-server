@@ -152,6 +152,36 @@ public class UploadUtils
 	}
 
 	/**
+	 * 上传一个文件到指定的目录，
+	 * <p>
+	 * Title: uploadFile
+	 * </p>
+	 * 
+	 * @param request
+	 * @param filePath 上传的目录
+	 * @return 成功后返回目录，上传失败则返回空目录
+	 */
+	public static String uploadFile(HttpServletRequest request, String filePath)
+	{
+		List<String> imgList = uploadFiles(request, filePath);
+		return CommonUtils.isEmpty(imgList) ? "" : imgList.get(0);
+	}
+	
+	/**
+	 * 上传一个文件到 默认目录（resources/uploads/default），
+	 * <p>
+	 * Title: uploadFile
+	 * </p>
+	 * @param request
+	 * @return 成功后返回目录，上传失败则返回空目录
+	 */
+	public static String uploadFile(HttpServletRequest request)
+	{
+		List<String> imgList = uploadFiles(request, CommonKey.UPLOAD_DEFAULT_PATH);
+		return CommonUtils.isEmpty(imgList) ? "" : imgList.get(0);
+	}
+
+	/**
 	 * 判定当前文件名在该路径下是否已经存在，如果已经存在则重新命名，命名规则: 1_fileName
 	 * <p>
 	 * Title: getFileName

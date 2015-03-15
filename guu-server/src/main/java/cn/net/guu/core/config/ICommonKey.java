@@ -21,80 +21,85 @@ public interface ICommonKey
 	/**
 	 * 成功标识
 	 */
-	public String SUCCESS = "SUCCESS";
+	String SUCCESS = "SUCCESS";
 
 	/**
 	 * 失败
 	 */
-	public String FAILURE = "FAILURE";
+	String FAILURE = "FAILURE";
 
 	/**
 	 * 等待
 	 */
-	public String WAITING = "WAITING";
+	String WAITING = "WAITING";
 
 	/**
 	 * 错误标识
 	 */
-	public String ERROR = "ERROR";
+	String ERROR = "ERROR";
 
 	/**
 	 * 默认标识
 	 */
-	public String DEFALUE = "DEFAULT";
+	String DEFALUE = "DEFAULT";
 
 	/**
 	 * 可用
 	 */
-	public String ENABLED = "ENABLED";
+	String ENABLED = "ENABLED";
 
 	/**
 	 * 可用
 	 */
-	public int ENABLED_INT = 1;
+	int ENABLED_INT = 1;
 
 	/**
 	 * 不可用
 	 */
-	public String DISABLE = "DISABLE";
+	String DISABLE = "DISABLE";
 
 	/**
 	 * 不可用
 	 */
-	public int DISABLE_INT = 0;
+	int DISABLE_INT = 0;
 
 	/**
 	 * GUU
 	 */
-	public String GUU = "GUU";
+	String GUU = "GUU";
 
 	/**
 	 * 日期转换格式 “YYYY-MM-DD”
 	 */
-	public String DATE_FORMAR_YYYY_MM_DD = "YYYY-MM-DD";
+	String DATE_FORMAR_YYYY_MM_DD = "YYYY-MM-DD";
 
 	/**
 	 * 日期转换格式 “YYYY-MM-DD HH:mm:ss”
 	 */
-	public String DATE_FORMAR_YYYY_MM_DD_HH_mm_ss = "YYYY-DD-DD HH:mm:ss";
+	String DATE_FORMAR_YYYY_MM_DD_HH_mm_ss = "YYYY-DD-DD HH:mm:ss";
 
 	/**
 	 * 日期转换格式 “YYYYMMDDHHmmsss”
 	 */
-	public String DATE_FORMAR_YYYYMMDDHHmmsss = "YYYYDDDDHHmmsss";
+	String DATE_FORMAR_YYYYMMDDHHmmsss = "YYYYDDDDHHmmsss";
 
 	/**
 	 * 用户sessionID
 	 */
-	public String SESSION_LOGIN_NAME = "SESSION_LOGIN_NAME";
+	String SESSION_LOGIN_NAME = "SESSION_LOGIN_NAME";
 
 	/**
 	 * 图片上传路径
 	 */
-	public String UPLOAD_IMAGE_PATH = "resources/uploads/images/";
-	
+	String UPLOAD_IMAGE_PATH = "resources/uploads/images/";
+
 	/**
 	 * 默认文件上传路径
 	 */
-	public String UPLOAD_DEFAULT_PATH = "resources/uploads/default/";
+	String UPLOAD_DEFAULT_PATH = "resources/uploads/default/";
+
+	/**
+	 * 系统异常跳转的错误页面路径
+	 */
+	String ADMIN_ERROR_URL = "admin/error";
 }

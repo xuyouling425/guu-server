@@ -1,6 +1,8 @@
 package cn.net.guu.core.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +44,20 @@ public class CommonUtils
 	public static boolean isEmpty(Collection<?> collection)
 	{
 		return null == collection || collection.size() == 0;
+	}
+
+	/**
+	 * 判定string数组为空
+	 * <p>
+	 * Title: isEmpty
+	 * </p>
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(Object[] str)
+	{
+		return null == str || str.length == 0;
 	}
 
 	/**
@@ -191,7 +207,35 @@ public class CommonUtils
 		String pk = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
 		log.info("Generated primary key is [" + pk + "]");
 		return pk;
+	}
 
+	/**
+	 * 将数组转换list集合，
+	 * <p>
+	 * Title: changeList
+	 * </p>
+	 * 
+	 * @param str
+	 * @return 传入集合为空，返回null,集合里面的空也会过滤掉
+	 */
+	public static List<String> changeList(String[] str)
+	{
+		if (isEmpty(str))
+		{
+			return null;
+		} else
+		{
+			List<String> tempList = new ArrayList<String>();
+			for (String temp : str)
+			{
+				if (!StringUtils.isEmpty(temp))
+				{
+					tempList.add(temp);
+				}
+			}
+
+			return tempList;
+		}
 	}
 
 }

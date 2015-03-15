@@ -10,7 +10,8 @@ import cn.net.guu.core.service.BaseServiceWithBlob;
 * @author xurz
 * @date 2015年2月13日
  */
-public interface BusinessService extends BaseServiceWithBlob
+public interface ProjectService extends BaseServiceWithBlob
 {
 
+	
 }

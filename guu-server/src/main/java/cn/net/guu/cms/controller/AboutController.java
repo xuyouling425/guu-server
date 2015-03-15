@@ -64,12 +64,9 @@ public class AboutController
 	{
 		log.info("Entering addModify().");
 		ModelAndView mav = new ModelAndView("admin/about");
-		List<String> imgList = UploadUtils.uploadFiles(request,CommonKey.UPLOAD_IMAGE_PATH);
+		String imgPath = UploadUtils.uploadFile(request,CommonKey.UPLOAD_IMAGE_PATH);
 		// 上传成功，返回image路径设置为about的图片路径
-		if (!CommonUtils.isEmpty(imgList))
-		{
-			about.setImagePath(imgList.get(0));
-		}
+		about.setImagePath(imgPath);
 		try
 		{
 			// 判定aboutId是否为空,aboutId为空，添加一条数据
@@ -89,7 +86,7 @@ public class AboutController
 		{
 			log.error("Add or modify about faild.", e);
 			// TODO: handle exception
-			return new ModelAndView("admin/error");
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 		log.info("Exiting addModify().");
 		return mav;
@@ -126,7 +123,7 @@ public class AboutController
 		{
 			// TODO Auto-generated catch block
 			log.error("Select about Faild.", e);
-			return new ModelAndView("admin/error");
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 		log.info("Exiting selAbout().");
 		return mav;

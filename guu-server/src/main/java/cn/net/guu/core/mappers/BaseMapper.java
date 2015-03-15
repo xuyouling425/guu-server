@@ -3,7 +3,6 @@ package cn.net.guu.core.mappers;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 
 /**

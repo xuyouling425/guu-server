@@ -13,14 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.guu.cms.model.Business;
-import cn.net.guu.cms.service.BusinessService;
+import cn.net.guu.cms.model.Project;
+import cn.net.guu.cms.service.ProjectService;
 import cn.net.guu.core.config.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
 
 /**
- * 服务接口类
+ * 项目/案例接口类
  * <p>
  * Title: BusinessController
  * </p>
@@ -36,51 +36,51 @@ import cn.net.guu.core.utils.UploadUtils;
  */
 
 @Controller
-@RequestMapping("/business")
-public class BusinessController
+@RequestMapping("/project")
+public class ProjectController
 {
 
 	/**
 	 * log日志
 	 */
-	private static Log log = LogFactory.getLog(BusinessController.class);
+	private static Log log = LogFactory.getLog(ProjectController.class);
 
-	@Resource(name = "businessServiceImpl")
-	private BusinessService businessService;
+	@Resource(name = "projectServiceImpl")
+	private ProjectService projectService;
 
 	/**
-	 * 查询出所有的服务（业务）信息
+	 * 查询出所有的项目/案例（业务）信息
 	 * <p>
-	 * Title: queryBusiness
+	 * Title: queryProject
 	 * </p>
 	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/query")
-	public ModelAndView queryBusiness()
+	public ModelAndView queryProject()
 	{
-		log.info("Entering queryBusiness()..");
-		ModelAndView mav = new ModelAndView("admin/business");
+		log.info("Entering queryProject()..");
+		ModelAndView mav = new ModelAndView("admin/project");
 		try
 		{
-			List<Business> businesses = (List<Business>) businessService.selectByExample(null);
-			mav.addObject("businesses", businesses);
+			List<Project> projects = (List<Project>) projectService.selectByExample(null);
+			mav.addObject("projects", projects);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Select query business Faild.", e);
+			log.error("Select queryProject Faild.", e);
 			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 
-		log.info("Exiting queryBusiness()..");
+		log.info("Exiting queryProject()..");
 		return mav;
 	}
 
 	/**
-	 * 新增一个服务
+	 * 新增一个项目/案例
 	 * <p>
-	 * Title: addBusiness
+	 * Title: addProject
 	 * </p>
 	 * 
 	 * @param request
@@ -88,49 +88,48 @@ public class BusinessController
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public ModelAndView addBusiness(HttpServletRequest request, Business business)
+	public ModelAndView addProject(HttpServletRequest request, Project project)
 	{
-		log.info("Entering addBusiness()..");
+		log.info("Entering addProject()..");
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
 		// 设置上传图片
-		business.setImage(imgPath);
+		project.setImage(imgPath);
 		// 设置主键
-		business.setId(CommonUtils.getPrimaryKey());
+		project.setPid(CommonUtils.getPrimaryKey());
 
 		try
 		{
-			log.info("The current bussiness is " + business);
-
+			log.info("The current bussiness is " + project);
 			// 调用添加接口
-			businessService.add(business);
+			projectService.add(project);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Add Bussiness Failed.", e);
+			log.error("Add project Failed.", e);
 		}
 
-		log.info("Exiting addBusiness()..");
-		return queryBusiness();
+		log.info("Exiting addProject()..");
+		return queryProject();
 	}
 
 	/**
-	 * 跳转到添加服务页面
+	 * 跳转到添加项目/案例页面
 	 * <p>
-	 * Title: toAddBuss
+	 * Title: toAddProject
 	 * </p>
 	 * 
 	 * @return
 	 */
 	@RequestMapping("/toAdd")
-	public ModelAndView toAddBus()
+	public ModelAndView toAddProject()
 	{
-		return new ModelAndView("admin/addBusiness");
+		return new ModelAndView("admin/addProject");
 	}
 
 	/**
-	 * 跳转到修改服务页面
+	 * 跳转到修改项目/案例页面
 	 * <p>
-	 * Title: toAddBuss
+	 * Title: toUpdate
 	 * </p>
 	 * 
 	 * @return
@@ -139,15 +138,15 @@ public class BusinessController
 	public ModelAndView toUpdate(HttpServletRequest request)
 	{
 		String pid = request.getParameter("pid");
-		ModelAndView mav = new ModelAndView("admin/updateBusiness");
-		Business business = new Business();
+		ModelAndView mav = new ModelAndView("admin/updateProject");
+		Project project = new Project();
 		if (!StringUtils.isEmpty(pid))
 		{
 			try
 			{
-				business = (Business) businessService.selectBypk(pid);
+				project = (Project) projectService.selectBypk(pid);
 
-				mav.addObject("business", business);
+				mav.addObject("project", project);
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block
@@ -157,16 +156,16 @@ public class BusinessController
 		} else
 		{
 			// pid传值为空，直接返回查看页面
-			return queryBusiness();
+			return queryProject();
 		}
 
 		return mav;
 	}
 
 	/**
-	 * 新增一个服务
+	 * 新增一个项目/案例
 	 * <p>
-	 * Title: addBusiness
+	 * Title: updateProject
 	 * </p>
 	 * 
 	 * @param request
@@ -174,29 +173,30 @@ public class BusinessController
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public ModelAndView updateBusiness(HttpServletRequest request, Business business)
+	public ModelAndView updateProject(HttpServletRequest request, Project project)
 	{
-		log.info("Entering updateBussiness()..");
+		log.info("Entering updateProject()..");
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
 		// 设置上传图片
-		business.setImage(imgPath);
+		project.setImage(imgPath);
 
 		try
 		{
 			// 更新接口
-			businessService.updateByPrimaryKeyWithBLOBs(business);
+			projectService.updateByPrimaryKeyWithBLOBs(project);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Update Bussiness Failed.", e);
+			log.error("Update project Failed.", e);
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 
-		log.info("Exiting updateBussiness()..");
-		return queryBusiness();
+		log.info("Exiting updateProject()..");
+		return queryProject();
 	}
 
 	/**
-	 * 删除一个 服务信息
+	 * 删除一个 项目/案例信息
 	 * <p>
 	 * Title: delete
 	 * </p>
@@ -212,14 +212,14 @@ public class BusinessController
 		{
 			try
 			{
-				businessService.deleteBypk(pid);
+				projectService.deleteBypk(pid);
 			} catch (SQLException e)
 			{
-				// CommonKey.ADMIN_ERROR_URL
+				// TODO Auto-generated catch block
 				log.error("Delete Business Failed.", e);
 				return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 			}
 		}
-		return queryBusiness();
+		return queryProject();
 	}
 }
