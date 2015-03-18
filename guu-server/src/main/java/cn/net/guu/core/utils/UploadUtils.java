@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -182,7 +183,9 @@ public class UploadUtils
 	}
 
 	/**
-	 * 判定当前文件名在该路径下是否已经存在，如果已经存在则重新命名，命名规则: 1_fileName
+	 * 判定当前文件名在该路径下是否已经存在，
+	 * 1.如果文件名有中文，则用当前时间进行文件重命名
+	 * 2.如果已经存在则重新命名，命名规则: 1_fileName
 	 * <p>
 	 * Title: getFileName
 	 * </p>
@@ -196,6 +199,15 @@ public class UploadUtils
 	public static String getFileName(String localPath, String fileName)
 	{
 		int filNamePrefix = 1;
+		
+		//处理中文文件名
+		Pattern pattern = Pattern.compile(CommonKey.CHINESE_PATTEN);
+		Matcher m = pattern.matcher(fileName);
+		if(m.find()){
+			//如果包含中文名，重新生成文件名
+			fileName = CommonUtils.getDateTime()+fileName.substring(fileName.lastIndexOf("."));
+		}
+		
 		File file = new File(localPath + fileName);
 		if (file.exists())
 		{

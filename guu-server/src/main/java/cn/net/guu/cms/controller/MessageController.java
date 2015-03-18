@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,7 @@ public class MessageController
 
 	@Resource(name = "messageServiceImpl")
 	private MessageService messageService;
+	
 	
 	/**
 	 * 跳转到新增信息页面
@@ -167,6 +169,32 @@ public class MessageController
 		}
 		
 		return maView;
+	}
+	
+	/**
+	 * 更新一条信息
+	* <p>Title: update</p>
+	* @param request
+	* @return
+	 */
+	@RequestMapping("/update")
+	public ModelAndView updateMessage(HttpServletRequest request,Message message){
+		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
+		if(!StringUtils.isEmpty(imgPath)){
+			message.setImage(imgPath);
+		}
+		
+		try
+		{
+			messageService.updateBypkSelective(message);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			log.error("Update message failed.",e);
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
+		}
+		
+		return queryMessage();
 	}
 
 }

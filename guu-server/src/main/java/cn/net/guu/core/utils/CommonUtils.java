@@ -1,13 +1,17 @@
 package cn.net.guu.core.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import cn.net.guu.core.config.CommonKey;
 
 /**
  * 基础工具类 处理和字符串有关的
@@ -207,6 +211,17 @@ public class CommonUtils
 		String pk = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
 		log.info("Generated primary key is [" + pk + "]");
 		return pk;
+	}
+	
+	/**
+	 * 返回当前时间 
+	 * 格式：yyyyMMddHHmmsss
+	* <p>Title: getDateTime</p>
+	* @return
+	 */
+	public static String getDateTime(){
+		SimpleDateFormat sdf = new SimpleDateFormat(CommonKey.DATE_FORMAR_YYYYMMDDHHmmsss);
+		return sdf.format(new Date());
 	}
 
 	/**

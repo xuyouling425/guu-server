@@ -71,17 +71,17 @@ public interface ICommonKey
 	/**
 	 * 日期转换格式 “YYYY-MM-DD”
 	 */
-	String DATE_FORMAR_YYYY_MM_DD = "YYYY-MM-DD";
+	String DATE_FORMAR_YYYY_MM_DD = "yyyy-MM-dd";
 
 	/**
 	 * 日期转换格式 “YYYY-MM-DD HH:mm:ss”
 	 */
-	String DATE_FORMAR_YYYY_MM_DD_HH_mm_ss = "YYYY-DD-DD HH:mm:ss";
+	String DATE_FORMAR_YYYY_MM_DD_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 日期转换格式 “YYYYMMDDHHmmsss”
 	 */
-	String DATE_FORMAR_YYYYMMDDHHmmsss = "YYYYDDDDHHmmsss";
+	String DATE_FORMAR_YYYYMMDDHHmmsss = "yyyyMMddHHmmsss";
 
 	/**
 	 * 用户sessionID
@@ -102,4 +102,9 @@ public interface ICommonKey
 	 * 系统异常跳转的错误页面路径
 	 */
 	String ADMIN_ERROR_URL = "admin/error";
+	
+	/**
+	 * 中文正则
+	 */
+	String CHINESE_PATTEN = "[\\u4e00-\\u9fa5]";
 }
