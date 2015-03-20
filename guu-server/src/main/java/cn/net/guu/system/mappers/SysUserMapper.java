@@ -1,12 +1,8 @@
 package cn.net.guu.system.mappers;
 
-import cn.net.guu.core.mappers.BaseMapper;
+import cn.net.guu.core.mappers.BaseMapperWithBlob;
 
 
-public interface SysUserMapper extends BaseMapper {
- 
+public interface SysUserMapper extends BaseMapperWithBlob {
 	
-	/**
-	 * 
-	 */
 }

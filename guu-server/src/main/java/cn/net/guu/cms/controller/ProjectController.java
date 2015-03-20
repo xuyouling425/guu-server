@@ -99,7 +99,6 @@ public class ProjectController
 
 		try
 		{
-			log.info("The current bussiness is " + project);
 			// 调用添加接口
 			projectService.add(project);
 		} catch (SQLException e)
@@ -178,8 +177,10 @@ public class ProjectController
 		log.info("Entering updateProject()..");
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
 		// 设置上传图片
-		project.setImage(imgPath);
-
+		if (!StringUtils.isEmpty(imgPath))
+		{
+			project.setImage(imgPath);
+		}
 		try
 		{
 			// 更新接口

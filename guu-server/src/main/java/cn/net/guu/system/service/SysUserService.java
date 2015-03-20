@@ -1,12 +1,9 @@
 package cn.net.guu.system.service;
 
 import java.sql.SQLException;
-
-
 import java.util.List;
 
 import cn.net.guu.core.service.BaseService;
-import cn.net.guu.system.model.SysAuthority;
 import cn.net.guu.system.model.SysUser;
 
 /**
@@ -40,5 +37,14 @@ public interface SysUserService extends BaseService {
 	* @throws SQLException
 	 */
 	public SysUser userLogin(String loginName,String loginPassword) throws SQLException;
+	
+	/**
+	 * 通过用户类型查询用户
+	* <p>Title: selectUserByType</p>
+	* @param userType
+	* @return
+	* @throws SQLException
+	 */
+	public List<SysUser> selectUserByType(String userType) throws SQLException;
 	
 }

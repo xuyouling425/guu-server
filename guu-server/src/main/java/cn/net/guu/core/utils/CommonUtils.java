@@ -190,7 +190,7 @@ public class CommonUtils
 	public static String getPrimaryKey(String prefix)
 	{
 		String priKey = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
-		if (StringUtils.isEmpty(prefix) || prefix.length() > 10)
+		if (!StringUtils.isEmpty(prefix) && prefix.length() < 10)
 		{
 			priKey = prefix + priKey;
 		}
@@ -212,14 +212,17 @@ public class CommonUtils
 		log.info("Generated primary key is [" + pk + "]");
 		return pk;
 	}
-	
+
 	/**
-	 * 返回当前时间 
-	 * 格式：yyyyMMddHHmmsss
-	* <p>Title: getDateTime</p>
-	* @return
+	 * 返回当前时间 格式：yyyyMMddHHmmsss
+	 * <p>
+	 * Title: getDateTime
+	 * </p>
+	 * 
+	 * @return
 	 */
-	public static String getDateTime(){
+	public static String getDateTime()
+	{
 		SimpleDateFormat sdf = new SimpleDateFormat(CommonKey.DATE_FORMAR_YYYYMMDDHHmmsss);
 		return sdf.format(new Date());
 	}

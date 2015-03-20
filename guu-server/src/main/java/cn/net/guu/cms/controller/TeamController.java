@@ -13,14 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.guu.cms.model.Business;
-import cn.net.guu.cms.service.BusinessService;
 import cn.net.guu.core.config.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
+import cn.net.guu.system.model.SysUser;
+import cn.net.guu.system.service.SysUserService;
 
 /**
- * 服务接口类
+ * 团队成员控制器
  * <p>
  * Title: BusinessController
  * </p>
@@ -36,51 +36,50 @@ import cn.net.guu.core.utils.UploadUtils;
  */
 
 @Controller
-@RequestMapping("/business")
-public class BusinessController
+@RequestMapping("/team")
+public class TeamController
 {
 
 	/**
 	 * log日志
 	 */
-	private static Log log = LogFactory.getLog(BusinessController.class);
+	private static Log log = LogFactory.getLog(TeamController.class);
 
-	@Resource(name = "businessServiceImpl")
-	private BusinessService businessService;
+	@Resource(name = "sysUserServiceImpl")
+	private SysUserService teamService;
 
 	/**
-	 * 查询出所有的服务（业务）信息
+	 * 查询出所有的团队成员信息
 	 * <p>
-	 * Title: queryBusiness
+	 * Title: queryProject
 	 * </p>
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/query")
-	public ModelAndView queryBusiness()
+	public ModelAndView query()
 	{
-		log.info("Entering queryBusiness()..");
-		ModelAndView mav = new ModelAndView("admin/business");
+		log.info("Entering query()..");
+		ModelAndView mav = new ModelAndView("admin/team");
 		try
 		{
-			List<Business> businesses = (List<Business>) businessService.selectByExample(null);
-			mav.addObject("businesses", businesses);
+			List<SysUser> teams = (List<SysUser>) teamService.selectUserByType(CommonKey.USER_TYPE_TEAM);
+			mav.addObject("teams", teams);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Select query business Faild.", e);
+			log.error("Select query faild.", e);
 			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 
-		log.info("Exiting queryBusiness()..");
+		log.info("Exiting query()..");
 		return mav;
 	}
 
 	/**
-	 * 新增一个服务
+	 * 新增一个团队成员
 	 * <p>
-	 * Title: addBusiness
+	 * Title: addProject
 	 * </p>
 	 * 
 	 * @param request
@@ -88,48 +87,51 @@ public class BusinessController
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public ModelAndView addBusiness(HttpServletRequest request, Business business)
+	public ModelAndView add(HttpServletRequest request, SysUser team)
 	{
-		log.info("Entering addBusiness()..");
+		log.info("Entering add()..");
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
 		// 设置上传图片
-		business.setImage(imgPath);
+		team.setPhoto(imgPath);
 		// 设置主键
-		business.setId(CommonUtils.getPrimaryKey());
+		team.setUserId(CommonUtils.getPrimaryKey(CommonKey.GUU));
+		// 设置用户类型为团队成员类型：team
+		team.setUserType(CommonKey.USER_TYPE_TEAM);
+		// 设置团队成员成员状态为可用
+		team.setUserStatus(CommonKey.ENABLED_INT);
 
 		try
 		{
-
 			// 调用添加接口
-			businessService.add(business);
+			teamService.add(team);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Add Bussiness Failed.", e);
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 
-		log.info("Exiting addBusiness()..");
-		return queryBusiness();
+		log.info("Exiting add()..");
+		return query();
 	}
 
 	/**
-	 * 跳转到添加服务页面
+	 * 跳转到添加团队成员页面
 	 * <p>
-	 * Title: toAddBuss
+	 * Title: toAddProject
 	 * </p>
 	 * 
 	 * @return
 	 */
 	@RequestMapping("/toAdd")
-	public ModelAndView toAddBus()
+	public ModelAndView toAdd()
 	{
-		return new ModelAndView("admin/addBusiness");
+		return new ModelAndView("admin/addTeam");
 	}
 
 	/**
-	 * 跳转到修改服务页面
+	 * 跳转到修改团队成员页面
 	 * <p>
-	 * Title: toAddBuss
+	 * Title: toUpdate
 	 * </p>
 	 * 
 	 * @return
@@ -138,34 +140,34 @@ public class BusinessController
 	public ModelAndView toUpdate(HttpServletRequest request)
 	{
 		String pid = request.getParameter("pid");
-		ModelAndView mav = new ModelAndView("admin/updateBusiness");
-		Business business = new Business();
+		ModelAndView mav = new ModelAndView("admin/updateTeam");
+		SysUser team = new SysUser();
 		if (!StringUtils.isEmpty(pid))
 		{
 			try
 			{
-				business = (Business) businessService.selectBypk(pid);
+				team = (SysUser) teamService.selectBypk(pid);
 
-				mav.addObject("business", business);
+				mav.addObject("team", team);
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block
-				log.error("Select Business Failed.", e);
+				log.error("Select failed.", e);
 				return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 			}
 		} else
 		{
 			// pid传值为空，直接返回查看页面
-			return queryBusiness();
+			return query();
 		}
 
 		return mav;
 	}
 
 	/**
-	 * 新增一个服务
+	 * 更新一个团队成员
 	 * <p>
-	 * Title: addBusiness
+	 * Title: updateProject
 	 * </p>
 	 * 
 	 * @param request
@@ -173,32 +175,32 @@ public class BusinessController
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public ModelAndView updateBusiness(HttpServletRequest request, Business business)
+	public ModelAndView update(HttpServletRequest request, SysUser team)
 	{
-		log.info("Entering updateBussiness()..");
+		log.info("Entering update()..");
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
 		if (!StringUtils.isEmpty(imgPath))
 		{
 			// 设置上传图片
-			business.setImage(imgPath);
+			team.setPhoto(imgPath);
 		}
-		
 		try
 		{
 			// 更新接口
-			businessService.updateByPrimaryKeyWithBLOBs(business);
+			teamService.updateBypkSelective(team);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Update Bussiness Failed.", e);
+			log.error("Update ailed.", e);
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
 
-		log.info("Exiting updateBussiness()..");
-		return queryBusiness();
+		log.info("Exiting update()..");
+		return query();
 	}
 
 	/**
-	 * 删除一个 服务信息
+	 * 删除一个团队成员信息
 	 * <p>
 	 * Title: delete
 	 * </p>
@@ -209,19 +211,21 @@ public class BusinessController
 	@RequestMapping("/delete")
 	public ModelAndView delete(HttpServletRequest request)
 	{
+		log.info("Entering delete()..");
 		String pid = request.getParameter("pid");
 		if (!StringUtils.isEmpty(pid))
 		{
 			try
 			{
-				businessService.deleteBypk(pid);
+				teamService.deleteBypk(pid);
 			} catch (SQLException e)
 			{
-				// CommonKey.ADMIN_ERROR_URL
-				log.error("Delete Business Failed.", e);
+				// TODO Auto-generated catch block
+				log.error("Delete  Failed.", e);
 				return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 			}
 		}
-		return queryBusiness();
+		log.info("Existing delete()..");
+		return query();
 	}
 }

@@ -19,6 +19,16 @@ public interface ICommonKey
 {
 
 	/**
+	 * SERIALVERSIONUID
+	 */
+	long SERIALVERSIONUID = 1L;
+	
+	/**
+	 * GUU
+	 */
+	String GUU = "guu";
+	
+	/**
 	 * 成功标识
 	 */
 	String SUCCESS = "SUCCESS";
@@ -63,10 +73,7 @@ public interface ICommonKey
 	 */
 	int DISABLE_INT = 0;
 
-	/**
-	 * GUU
-	 */
-	String GUU = "GUU";
+	
 
 	/**
 	 * 日期转换格式 “YYYY-MM-DD”
@@ -107,4 +114,10 @@ public interface ICommonKey
 	 * 中文正则
 	 */
 	String CHINESE_PATTEN = "[\\u4e00-\\u9fa5]";
+
+	/**
+	 * 用户类型：team
+	 */
+	String USER_TYPE_TEAM = "team";
+
 }

@@ -48,20 +48,23 @@ public class MessageController
 
 	@Resource(name = "messageServiceImpl")
 	private MessageService messageService;
-	
-	
+
 	/**
 	 * 跳转到新增信息页面
-	* <p>Title: toAdd</p>
-	* @return
+	 * <p>
+	 * Title: toAdd
+	 * </p>
+	 * 
+	 * @return
 	 */
 	@RequestMapping("/toAdd")
-	public ModelAndView toAdd(){
+	public ModelAndView toAdd()
+	{
 		return new ModelAndView("admin/addMessage");
 	}
-	
+
 	@RequestMapping("/add")
-	public ModelAndView addMessage(HttpServletRequest request,Message message)
+	public ModelAndView addMessage(HttpServletRequest request, Message message)
 	{
 
 		log.info("Entering addMessage()..");
@@ -74,7 +77,6 @@ public class MessageController
 
 		try
 		{
-			log.info("The current message is " + message);
 			// 调用添加接口
 			messageService.add(message);
 		} catch (SQLException e)
@@ -85,25 +87,29 @@ public class MessageController
 
 		log.info("Exiting addMessage()..");
 		return queryMessage();
-	
+
 	}
-	
+
 	/**
 	 * 后台管理，查询出所有的信息
-	* <p>Title: queryMessage</p>
-	* @return
+	 * <p>
+	 * Title: queryMessage
+	 * </p>
+	 * 
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/query")
-	public ModelAndView queryMessage(){
+	public ModelAndView queryMessage()
+	{
 		ModelAndView maView = new ModelAndView("admin/message");
 		try
 		{
 			MessageExample example = new MessageExample();
 			example.setOrderByClause(" creat_time desc");
-			
+
 			List<Message> messages = (List<Message>) messageService.selectByExample(example);
-			
+
 			maView.addObject("messages", messages);
 		} catch (SQLException e)
 		{
@@ -113,24 +119,29 @@ public class MessageController
 		}
 		return maView;
 	}
-	
+
 	/**
 	 * 删除信息
-	* <p>Title: deleteMessage</p>
-	* @param request
-	* @return
+	 * <p>
+	 * Title: deleteMessage
+	 * </p>
+	 * 
+	 * @param request
+	 * @return
 	 */
 	@RequestMapping("/delete")
-	public ModelAndView deleteMessage(HttpServletRequest request){
-		//获得前台传入的主键集合
+	public ModelAndView deleteMessage(HttpServletRequest request)
+	{
+		// 获得前台传入的主键集合
 		String pids = request.getParameter("pids");
 		String[] pid = pids.split("-");
 		List<String> pidList = CommonUtils.changeList(pid);
-		//传入值不为空
-		if(!CommonUtils.isEmpty(pidList)){
+		// 传入值不为空
+		if (!CommonUtils.isEmpty(pidList))
+		{
 			MessageExample example = new MessageExample();
-			Criteria cri=example.createCriteria();
-			//设置删除条件
+			Criteria cri = example.createCriteria();
+			// 设置删除条件
 			cri.andPidIn(pidList);
 			try
 			{
@@ -138,62 +149,71 @@ public class MessageController
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block
-				log.error("Delete message faild",e);
+				log.error("Delete message faild", e);
 				return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 			}
 		}
 		return queryMessage();
 	}
-	
+
 	/**
 	 * 通过主键获得一个message信息，跳转到修改页面
-	* <p>Title: toUpdate</p>
-	* @param request
-	* @return
+	 * <p>
+	 * Title: toUpdate
+	 * </p>
+	 * 
+	 * @param request
+	 * @return
 	 */
 	@RequestMapping("/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request)
 	{
 		ModelAndView maView = new ModelAndView("admin/updateMessage");
 		String pid = request.getParameter("pids");
-		
+
 		try
 		{
-			Message	message = (Message) messageService.selectBypk(pid);
-			maView.addObject("message",message);
+			Message message = (Message) messageService.selectBypk(pid);
+			maView.addObject("message", message);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Query message faile",e);
+			log.error("Query message faile", e);
 			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
-		
+
 		return maView;
 	}
-	
+
 	/**
 	 * 更新一条信息
-	* <p>Title: update</p>
-	* @param request
-	* @return
+	 * <p>
+	 * Title: update
+	 * </p>
+	 * 
+	 * @param request
+	 * @return
 	 */
 	@RequestMapping("/update")
-	public ModelAndView updateMessage(HttpServletRequest request,Message message){
+	public ModelAndView updateMessage(HttpServletRequest request, Message message)
+	{
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
-		if(!StringUtils.isEmpty(imgPath)){
+		
+		if (!StringUtils.isEmpty(imgPath))
+		{
 			message.setImage(imgPath);
 		}
-		
+
 		try
 		{
 			messageService.updateBypkSelective(message);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
-			log.error("Update message failed.",e);
+			log.error("Update message failed.", e);
 			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
-		
+
 		return queryMessage();
 	}
 
