@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.cms.model.Message;
 import cn.net.guu.cms.model.MessageExample;
 import cn.net.guu.cms.model.MessageExample.Criteria;
@@ -79,6 +80,8 @@ public class MessageController
 		{
 			// 调用添加接口
 			messageService.add(message);
+			//刷新缓存
+			WebCache.getInstance().refreshMessage();
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -146,6 +149,9 @@ public class MessageController
 			try
 			{
 				messageService.deleteByExample(example);
+				//刷新缓存
+				WebCache.getInstance().refreshMessage();
+				
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block
@@ -207,6 +213,9 @@ public class MessageController
 		try
 		{
 			messageService.updateBypkSelective(message);
+			//刷新缓存
+			WebCache.getInstance().refreshMessage();
+			
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block

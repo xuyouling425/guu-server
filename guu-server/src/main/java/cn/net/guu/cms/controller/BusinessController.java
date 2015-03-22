@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.cms.model.Business;
 import cn.net.guu.cms.service.BusinessService;
 import cn.net.guu.core.config.CommonKey;
@@ -102,6 +103,8 @@ public class BusinessController
 
 			// 调用添加接口
 			businessService.add(business);
+			//添加成功后刷新缓存
+			WebCache.getInstance().refreshBusiness();
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -187,6 +190,8 @@ public class BusinessController
 		{
 			// 更新接口
 			businessService.updateByPrimaryKeyWithBLOBs(business);
+			//刷新缓存
+			WebCache.getInstance().refreshBusiness();
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -215,6 +220,10 @@ public class BusinessController
 			try
 			{
 				businessService.deleteBypk(pid);
+				
+				//刷新缓存
+				WebCache.getInstance().refreshBusiness();
+				
 			} catch (SQLException e)
 			{
 				// CommonKey.ADMIN_ERROR_URL

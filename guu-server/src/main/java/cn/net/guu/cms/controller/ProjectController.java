@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.cms.model.Project;
 import cn.net.guu.cms.service.ProjectService;
 import cn.net.guu.core.config.CommonKey;
@@ -101,6 +102,8 @@ public class ProjectController
 		{
 			// 调用添加接口
 			projectService.add(project);
+			//刷新缓存
+			WebCache.getInstance().refreshProject();
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -185,6 +188,9 @@ public class ProjectController
 		{
 			// 更新接口
 			projectService.updateByPrimaryKeyWithBLOBs(project);
+			//刷新缓存
+			WebCache.getInstance().refreshProject();
+			
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -214,6 +220,9 @@ public class ProjectController
 			try
 			{
 				projectService.deleteBypk(pid);
+				//刷新缓存
+				WebCache.getInstance().refreshProject();
+				
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block

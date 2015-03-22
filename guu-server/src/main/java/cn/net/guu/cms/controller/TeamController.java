@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.core.config.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
@@ -104,6 +105,8 @@ public class TeamController
 		{
 			// 调用添加接口
 			teamService.add(team);
+			//刷新缓存
+			WebCache.getInstance().refreshTeam();
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -188,6 +191,8 @@ public class TeamController
 		{
 			// 更新接口
 			teamService.updateBypkSelective(team);
+			//刷新缓存
+			WebCache.getInstance().refreshTeam();
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -218,6 +223,9 @@ public class TeamController
 			try
 			{
 				teamService.deleteBypk(pid);
+				//刷新缓存
+				WebCache.getInstance().refreshTeam();
+				
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block

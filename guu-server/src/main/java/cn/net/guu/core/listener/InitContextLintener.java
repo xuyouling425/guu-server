@@ -1,19 +1,13 @@
 package cn.net.guu.core.listener;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.core.config.CommonKey;
-import cn.net.guu.core.spring.SpringContextHolder;
-import cn.net.guu.core.utils.CommonUtils;
-import cn.net.guu.system.model.SysResources;
-import cn.net.guu.system.service.SysResourcesService;
 
 
 /**
@@ -27,6 +21,9 @@ import cn.net.guu.system.service.SysResourcesService;
  */
 public class InitContextLintener implements ServletContextListener {
 
+	/**
+	 * 系统日志
+	 */
 	private Log log = LogFactory.getLog(InitContextLintener.class);	
 	
 	/**
@@ -39,36 +36,53 @@ public class InitContextLintener implements ServletContextListener {
 	/**
 	 * web容器启动时候调用
 	 */
-	@SuppressWarnings("unchecked")
 	public void contextInitialized(ServletContextEvent event) {
-		//项目部署路径
-		CommonKey.setWebroot(event.getServletContext().getRealPath("/"));
-		//项目class路径
-		CommonKey.setClasspath(InitContextLintener.class.getResource("/").getPath().substring(1));
+		log.info("Enter init content...");
+		//初始路径
+		initPath(event);
+		//初始化WEBCACHE
+		WebCache.getInstance().init();
+
+		event.getServletContext().setAttribute("webCache", WebCache.getInstance());
 		
-		System.out.println("项目部署路径：" + event.getServletContext().getRealPath("/"));
 //		System.out.println("项目Class文件路径：" + CommKey.CLASSPATH);
 //		log.info("项目部署路径：" + CommKey.WEBROOT);
 //		log.info("项目Class文件路径：" + CommKey.CLASSPATH);
 		
 		//----------------------------初始将系统所有资源加载到内存中-------------------------------//
-		SysResourcesService resourcesService = SpringContextHolder.getBean("sysResourcesServiceImpl");
-		try {
-			//获得数据库中所有的资源信息
-			List<SysResources> resourcesList = (List<SysResources>) resourcesService.selectByExample(null);
-			if(!CommonUtils.isEmpty(resourcesList)){
-				for(SysResources resources:resourcesList){					
-					CommonKey.ResourcesMap.put(resources.getResourcesUrl(), resources);
-				}
-			}
-			//数据加载到application中
-			event.getServletContext().setAttribute("ResourcesMap", CommonKey.ResourcesMap);
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
+//		SysResourcesService resourcesService = SpringContextHolder.getBean("sysResourcesServiceImpl");
+//		try {
+//			//获得数据库中所有的资源信息
+//			List<SysResources> resourcesList = (List<SysResources>) resourcesService.selectByExample(null);
+//			if(!CommonUtils.isEmpty(resourcesList)){
+//				for(SysResources resources:resourcesList){					
+//					CommonKey.ResourcesMap.put(resources.getResourcesUrl(), resources);
+//				}
+//			}
+//			
+//			//数据加载到application中
+//			event.getServletContext().setAttribute("ResourcesMap", CommonKey.ResourcesMap);
+//			event.getServletContext().setAttribute("webCache", WebCache.getInstance());
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		log.info("Exist init content...");		
+	}
+	
+	/**
+	 * 初始项目的一些路径
+	* <p>Title: initPath</p>
+	* @param event
+	 */
+	private void initPath(ServletContextEvent event)
+	{
+		//项目部署路径
+		CommonKey.setWebroot(event.getServletContext().getRealPath("/"));
+		log.info("Porject web root path:"+event.getServletContext().getRealPath("/"));
+		//项目class路径
+		CommonKey.setClasspath(InitContextLintener.class.getResource("/").getPath().substring(1));
+		log.info("Porject classes path:"+event.getServletContext().getRealPath("/"));
 	}
 }
