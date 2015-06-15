@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.cms.cache.WebCache;
@@ -20,6 +21,7 @@ import cn.net.guu.cms.model.MessageExample;
 import cn.net.guu.cms.model.MessageExample.Criteria;
 import cn.net.guu.cms.service.MessageService;
 import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.config.ICommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
 
@@ -80,7 +82,7 @@ public class MessageController
 		{
 			// 调用添加接口
 			messageService.add(message);
-			//刷新缓存
+			// 刷新缓存
 			WebCache.getInstance().refreshMessage();
 		} catch (SQLException e)
 		{
@@ -149,9 +151,9 @@ public class MessageController
 			try
 			{
 				messageService.deleteByExample(example);
-				//刷新缓存
+				// 刷新缓存
 				WebCache.getInstance().refreshMessage();
-				
+
 			} catch (SQLException e)
 			{
 				// TODO Auto-generated catch block
@@ -204,7 +206,7 @@ public class MessageController
 	public ModelAndView updateMessage(HttpServletRequest request, Message message)
 	{
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_IMAGE_PATH);
-		
+
 		if (!StringUtils.isEmpty(imgPath))
 		{
 			message.setImage(imgPath);
@@ -213,9 +215,9 @@ public class MessageController
 		try
 		{
 			messageService.updateBypkSelective(message);
-			//刷新缓存
+			// 刷新缓存
 			WebCache.getInstance().refreshMessage();
-			
+
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -224,6 +226,47 @@ public class MessageController
 		}
 
 		return queryMessage();
+	}
+
+	/**
+	 * 首页留言
+	 * <p>
+	 * Title: leaveMsg
+	 * </p>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/leaveMsg")
+	@ResponseBody
+	public String leaveMsg(HttpServletRequest request)
+	{
+
+		Message message = new Message();
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String msg = request.getParameter("message");
+		
+		// 设置主键
+		message.setPid(CommonUtils.getPrimaryKey());
+		message.setCreatTime(new Date());
+		message.setType(ICommonKey.MESSAGE_TYPE_LEAVE_MSG);
+		
+		message.setUserPhone(phone);
+		message.setUserEmail(email);
+		message.setContent(msg);
+		message.setUserName(name);
+		try
+		{
+			messageService.add(message);
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			log.error("Leave message failed.", e);
+			return CommonKey.ERROR;
+		}
+		return CommonKey.SUCCESS;
 	}
 
 }
