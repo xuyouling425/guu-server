@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.config.ICommonKey;
 
 
 /**
@@ -43,7 +44,7 @@ public class InitContextLintener implements ServletContextListener {
 		//初始化WEBCACHE
 		WebCache.getInstance().init();
 
-		event.getServletContext().setAttribute("webCache", WebCache.getInstance());
+		event.getServletContext().setAttribute(ICommonKey.WEB_CACHE, WebCache.getInstance());
 		
 //		System.out.println("项目Class文件路径：" + CommKey.CLASSPATH);
 //		log.info("项目部署路径：" + CommKey.WEBROOT);

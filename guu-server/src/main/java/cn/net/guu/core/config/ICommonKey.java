@@ -22,12 +22,12 @@ public interface ICommonKey
 	 * SERIALVERSIONUID
 	 */
 	long SERIALVERSIONUID = 1L;
-	
+
 	/**
 	 * GUU
 	 */
 	String GUU = "guu";
-	
+
 	/**
 	 * 成功标识
 	 */
@@ -73,8 +73,6 @@ public interface ICommonKey
 	 */
 	int DISABLE_INT = 0;
 
-	
-
 	/**
 	 * 日期转换格式 “YYYY-MM-DD”
 	 */
@@ -109,7 +107,12 @@ public interface ICommonKey
 	 * 系统异常跳转的错误页面路径
 	 */
 	String ADMIN_ERROR_URL = "admin/error";
-	
+
+	/**
+	 * 首页
+	 */
+	String INDEX = "index";
+
 	/**
 	 * 中文正则
 	 */
@@ -119,5 +122,15 @@ public interface ICommonKey
 	 * 用户类型：team
 	 */
 	String USER_TYPE_TEAM = "team";
+	
+	/**
+	 * 前端缓存
+	 */
+	String WEB_CACHE ="webCache";
+
+	/**
+	 * 消息类型：留言
+	 */
+	int MESSAGE_TYPE_LEAVE_MSG = 3;
 
 }
