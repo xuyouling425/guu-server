@@ -12,7 +12,7 @@ import cn.net.guu.cms.model.Project;
 import cn.net.guu.cms.service.BusinessService;
 import cn.net.guu.cms.service.MessageService;
 import cn.net.guu.cms.service.ProjectService;
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.spring.SpringContextHolder;
 import cn.net.guu.system.model.SysUser;
 import cn.net.guu.system.service.SysUserService;
@@ -41,6 +41,9 @@ public class WebCache
 	 */
 	private Log log = LogFactory.getLog(WebCache.class);
 
+	/**
+	 * WebCache
+	 */
 	private static WebCache instance;
 
 	/**
@@ -82,10 +85,12 @@ public class WebCache
 	 */
 	public void init()
 	{
+		log.info("Start to init the webCache...");
 		refreshBusiness();
 		refreshMessage();
 		refreshProject();
 		refreshTeam();
+		log.info("End to init the webCache...");
 	}
 
 	/**

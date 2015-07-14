@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 
 /**
  * 基础工具类 处理和字符串有关的

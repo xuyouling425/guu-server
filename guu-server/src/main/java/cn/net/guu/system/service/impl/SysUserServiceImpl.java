@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.service.impl.BaseServiceImpl;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.EncryptUtils;

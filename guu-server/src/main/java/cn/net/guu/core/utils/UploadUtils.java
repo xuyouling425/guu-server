@@ -20,7 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
+import cn.net.guu.core.common.SystemPath;
 
 /**
  * 文件上传类
@@ -62,7 +63,7 @@ public class UploadUtils
 	public static List<String> uploadFiles(HttpServletRequest request, String filePath)
 	{
 		log.info("Entering uploadFiles().");
-		String localPath = CommonKey.getWebroot() + filePath;
+		String localPath = SystemPath.getWebroot() + filePath;
 		List<String> imgList = new ArrayList<String>();
 		// 创建文件路径
 		if (createDir(localPath))

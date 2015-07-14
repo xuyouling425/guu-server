@@ -18,4 +18,15 @@ public class IndexController
 	{
 		return new ModelAndView("index");
 	}
+	
+	/**
+	 * 访问首页
+	* <p>Title: index</p>
+	* @return
+	 */
+	@RequestMapping("/index")
+	public ModelAndView index1()
+	{
+		return new ModelAndView("index");
+	}
 }

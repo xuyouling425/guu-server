@@ -20,8 +20,7 @@ import cn.net.guu.cms.model.Message;
 import cn.net.guu.cms.model.MessageExample;
 import cn.net.guu.cms.model.MessageExample.Criteria;
 import cn.net.guu.cms.service.MessageService;
-import cn.net.guu.core.config.CommonKey;
-import cn.net.guu.core.config.ICommonKey;
+import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
 
@@ -251,7 +250,7 @@ public class MessageController
 		// 设置主键
 		message.setPid(CommonUtils.getPrimaryKey());
 		message.setCreatTime(new Date());
-		message.setType(ICommonKey.MESSAGE_TYPE_LEAVE_MSG);
+		message.setType(CommonKey.MESSAGE_TYPE_LEAVE_MSG);
 		
 		message.setUserPhone(phone);
 		message.setUserEmail(email);

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 
 public class Message
 {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.system.model.SysUser;
 import cn.net.guu.system.service.SysRoleService;
 import cn.net.guu.system.service.SysUserService;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.cms.cache.WebCache;
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
 import cn.net.guu.system.model.SysUser;

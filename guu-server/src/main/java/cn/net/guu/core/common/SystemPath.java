@@ -1,12 +1,12 @@
-package cn.net.guu.core.config;
+package cn.net.guu.core.common;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 配置公共的变量， 继承ICommonKey ,可以得到公共的常量
+ * 设置系统路径变量
  * <p>
- * Title: CommonKey
+ * Title: SystemPath
  * </p>
  * <p>
  * Description:
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author xurz
  * @date 2014年7月29日
  */
-public class CommonKey implements ICommonKey
+public class SystemPath
 {
 
 	/**
@@ -52,7 +52,7 @@ public class CommonKey implements ICommonKey
 
 	public static void setWebroot(String webroot)
 	{
-		CommonKey.webroot = webroot;
+		SystemPath.webroot = webroot;
 	}
 
 	public static String getClasspath()
@@ -62,7 +62,7 @@ public class CommonKey implements ICommonKey
 
 	public static void setClasspath(String classpath)
 	{
-		CommonKey.classpath = classpath;
+		SystemPath.classpath = classpath;
 	}
 
 }

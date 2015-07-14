@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.cms.model.About;
 import cn.net.guu.cms.service.AboutService;
-import cn.net.guu.core.config.CommonKey;
+import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.UploadUtils;
 

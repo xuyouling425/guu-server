@@ -7,8 +7,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import cn.net.guu.cms.cache.WebCache;
-import cn.net.guu.core.config.CommonKey;
-import cn.net.guu.core.config.ICommonKey;
+import cn.net.guu.core.common.CommonKey;
+import cn.net.guu.core.common.SystemPath;
 
 
 /**
@@ -44,7 +44,7 @@ public class InitContextLintener implements ServletContextListener {
 		//初始化WEBCACHE
 		WebCache.getInstance().init();
 
-		event.getServletContext().setAttribute(ICommonKey.WEB_CACHE, WebCache.getInstance());
+		event.getServletContext().setAttribute(CommonKey.WEB_CACHE, WebCache.getInstance());
 		
 //		System.out.println("项目Class文件路径：" + CommKey.CLASSPATH);
 //		log.info("项目部署路径：" + CommKey.WEBROOT);
@@ -80,10 +80,10 @@ public class InitContextLintener implements ServletContextListener {
 	private void initPath(ServletContextEvent event)
 	{
 		//项目部署路径
-		CommonKey.setWebroot(event.getServletContext().getRealPath("/"));
+		SystemPath.setWebroot(event.getServletContext().getRealPath("/"));
 		log.info("Porject web root path:"+event.getServletContext().getRealPath("/"));
 		//项目class路径
-		CommonKey.setClasspath(InitContextLintener.class.getResource("/").getPath().substring(1));
+		SystemPath.setClasspath(InitContextLintener.class.getResource("/").getPath().substring(1));
 		log.info("Porject classes path:"+event.getServletContext().getRealPath("/"));
 	}
 }

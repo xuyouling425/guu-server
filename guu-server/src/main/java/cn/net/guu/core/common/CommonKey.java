@@ -1,4 +1,4 @@
-package cn.net.guu.core.config;
+package cn.net.guu.core.common;
 
 /**
  * 配置一些共用的常量key
@@ -15,7 +15,7 @@ package cn.net.guu.core.config;
  * @author xurz
  * @date 2014年7月29日
  */
-public interface ICommonKey
+public interface CommonKey
 {
 
 	/**
