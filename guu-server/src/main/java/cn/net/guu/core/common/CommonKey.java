@@ -121,12 +121,18 @@ public interface CommonKey
 	/**
 	 * 用户类型：team
 	 */
-	String USER_TYPE_TEAM = "team";
+	String USER_TYPE_TEAM = "TEAM";
 	
 	/**
 	 * 前端缓存
 	 */
 	String WEB_CACHE ="webCache";
+	
+	
+	/**
+	 * 资源缓存
+	 */
+	String RESOURCE_CACHE ="resourceCache";
 
 	/**
 	 * 消息类型：留言

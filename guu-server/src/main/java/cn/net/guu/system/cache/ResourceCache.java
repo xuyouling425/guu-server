@@ -1,9 +1,8 @@
 package cn.net.guu.system.cache;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,11 +45,11 @@ public class ResourceCache
 	/**
 	 * resourceCache
 	 */
-	private static Map<String, List<SysResources>> resourceCache = new HashMap<String, List<SysResources>>();
+	private static  List<SysResources> resourceCache = new ArrayList<SysResources>();
 
 	public static List<SysResources> getResourceCache()
 	{
-		return resourceCache.get(CommonKey.RESOURCE_CACHE);
+		return resourceCache;
 	}
 
 	/**
@@ -110,7 +109,7 @@ public class ResourceCache
 		try
 		{
 			List<SysResources> resources = (List<SysResources>) service.selectByExample(example);
-			resourceCache.put(CommonKey.RESOURCE_CACHE, resources);
+			resourceCache = resources;
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
