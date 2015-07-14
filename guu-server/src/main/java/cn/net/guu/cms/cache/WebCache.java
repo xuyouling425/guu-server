@@ -1,7 +1,10 @@
 package cn.net.guu.cms.cache;
 
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,25 +49,10 @@ public class WebCache
 	 */
 	private static WebCache instance;
 
-	/**
-	 * 团队
-	 */
-	private static List<SysUser> teams;
-
-	/**
-	 * 服务
-	 */
-	private static List<Business> businesses;
-
-	/**
-	 * 新闻，消息
-	 */
-	private static List<Message> messages;
-
-	/**
-	 * 项目
-	 */
-	private static List<Project> projects;
+	
+	private static Map<String, Collection<?>> webCacheMap = new HashMap<String, Collection<?>>();
+	
+	
 
 	private WebCache()
 	{
@@ -108,7 +96,7 @@ public class WebCache
 		try
 		{
 			List<Business> busList = (List<Business>) businessService.selectByExample(null);
-			businesses = busList;
+			webCacheMap.put("businesses", busList);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -133,7 +121,7 @@ public class WebCache
 		try
 		{
 			List<Message> msgList = (List<Message>) messageService.selectByExample(null);
-			messages = msgList;
+			webCacheMap.put("messages", msgList);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -157,7 +145,7 @@ public class WebCache
 		try
 		{
 			List<Project> projectList = (List<Project>) projectService.selectByExample(null);
-			projects = projectList;
+			webCacheMap.put("projects", projectList);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -180,7 +168,7 @@ public class WebCache
 		try
 		{
 			List<SysUser> teamList = teamService.selectUserByType(CommonKey.USER_TYPE_TEAM);
-			teams = teamList;
+			webCacheMap.put("teams", teamList);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -189,24 +177,11 @@ public class WebCache
 		log.info("Exist refresh team cache...");
 	}
 
-	public List<SysUser> getTeams()
+	
+	
+	public static Map<String, Collection<?>> getWebCacheMap()
 	{
-		return teams;
-	}
-
-	public List<Business> getBusinesses()
-	{
-		return businesses;
-	}
-
-	public List<Message> getMessages()
-	{
-		return messages;
-	}
-
-	public List<Project> getProjects()
-	{
-		return projects;
+		return webCacheMap;
 	}
 
 }
