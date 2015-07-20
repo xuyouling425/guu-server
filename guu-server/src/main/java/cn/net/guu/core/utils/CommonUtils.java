@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,20 +49,6 @@ public class CommonUtils
 	public static boolean isEmpty(Collection<?> collection)
 	{
 		return null == collection || collection.size() == 0;
-	}
-
-	/**
-	 * 判定string数组为空
-	 * <p>
-	 * Title: isEmpty
-	 * </p>
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public static boolean isEmpty(Object[] str)
-	{
-		return null == str || str.length == 0;
 	}
 
 	/**
@@ -238,7 +225,7 @@ public class CommonUtils
 	 */
 	public static List<String> changeList(String[] str)
 	{
-		if (isEmpty(str))
+		if (ArrayUtils.isEmpty(str))
 		{
 			return null;
 		} else
