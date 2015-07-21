@@ -1,12 +1,11 @@
 package cn.net.guu.system.mappers;
 
-import cn.net.guu.core.mappers.BaseMapper;
-import cn.net.guu.system.model.SysAuthority;
-import cn.net.guu.system.model.SysAuthorityExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import cn.net.guu.core.mappers.BaseMapper;
+import cn.net.guu.system.model.SysAuthority;
 
 public interface SysAuthorityMapper extends BaseMapper {
 	

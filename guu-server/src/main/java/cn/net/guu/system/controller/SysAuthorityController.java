@@ -152,25 +152,7 @@ public class SysAuthorityController
 				String[] resourceIds = request.getParameterValues("resourceId");
 
 				log.info("The select resource list is " + resourceIds);
-				if (!ArrayUtils.isEmpty(resourceIds))
-				// 添加权限和资源访问的对应关系
-				{
-					List<SysAuthorityResources> authorityResourcesList = new ArrayList<SysAuthorityResources>();
-					SysAuthorityResources authorityResources;
-
-					for (int i = 0; i < resourceIds.length; i++)
-					{
-						authorityResources = new SysAuthorityResources();
-						authorityResources.setAuthorityId(authority.getAuthorityId());
-						authorityResources.setResourcesId(resourceIds[i]);
-						authorityResources.setArStatus(CommonKey.ENABLED_INT);
-						authorityResources.setAuthorityResId(CommonUtils.getPrimaryKey());
-						authorityResourcesList.add(authorityResources);
-					}
-					// 添加权限
-					log.info("Add an authortiyResources.");
-					authorityResourceService.addBatch(authorityResourcesList);
-				}
+				addAuthResBatch(authority, resourceIds);
 			}
 		} catch (SQLException e)
 		{
@@ -180,6 +162,29 @@ public class SysAuthorityController
 		}
 
 		return queryAllAutority(request);
+	}
+
+	private void addAuthResBatch(SysAuthority authority, String[] resourceIds) throws SQLException
+	{
+		if (!ArrayUtils.isEmpty(resourceIds))
+		// 添加权限和资源访问的对应关系
+		{
+			List<SysAuthorityResources> authorityResourcesList = new ArrayList<SysAuthorityResources>();
+			SysAuthorityResources authorityResources;
+
+			for (int i = 0; i < resourceIds.length; i++)
+			{
+				authorityResources = new SysAuthorityResources();
+				authorityResources.setAuthorityId(authority.getAuthorityId());
+				authorityResources.setResourcesId(resourceIds[i]);
+				authorityResources.setArStatus(CommonKey.ENABLED_INT);
+				authorityResources.setAuthorityResId(CommonUtils.getPrimaryKey());
+				authorityResourcesList.add(authorityResources);
+			}
+			// 添加权限
+			log.info("Add an authortiyResources.");
+			authorityResourceService.addBatch(authorityResourcesList);
+		}
 	}
 
 	/**
@@ -288,25 +293,9 @@ public class SysAuthorityController
 			String[] resourceIds = request.getParameterValues("resourceId");
 
 			log.info("The select resource list is " + resourceIds);
-			if (!ArrayUtils.isEmpty(resourceIds))
-			// 添加权限和资源访问的对应关系
-			{
-				List<SysAuthorityResources> authorityResourcesList = new ArrayList<SysAuthorityResources>();
-				SysAuthorityResources authorityResources;
-
-				for (int i = 0; i < resourceIds.length; i++)
-				{
-					authorityResources = new SysAuthorityResources();
-					authorityResources.setAuthorityId(authority.getAuthorityId());
-					authorityResources.setResourcesId(resourceIds[i]);
-					authorityResources.setArStatus(CommonKey.ENABLED_INT);
-					authorityResources.setAuthorityResId(CommonUtils.getPrimaryKey());
-					authorityResourcesList.add(authorityResources);
-				}
-				// 添加权限
-				log.info("Add an authortiy Resources.");
-				authorityResourceService.addBatch(authorityResourcesList);
-			}
+			
+			addAuthResBatch(authority, resourceIds);
+			
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
