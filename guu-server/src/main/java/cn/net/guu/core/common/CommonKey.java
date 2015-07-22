@@ -133,6 +133,11 @@ public interface CommonKey
 	 * 资源缓存
 	 */
 	String RESOURCE_CACHE ="resourceCache";
+	
+	/**
+	 * 权限缓存
+	 */
+	String AUTHORITY_CACHE ="authorityCache";
 
 	/**
 	 * 消息类型：留言
