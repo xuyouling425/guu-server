@@ -284,7 +284,7 @@ public class SysAuthorityController
 		{
 			// 添加权限
 			log.info("Update an authortiy.");
-			sysAuthorityService.updateBypk(authority);
+			sysAuthorityService.updateBypkSelective(authority);
 			log.info("Delete authority resources,the authority is " + authority.getAuthorityId());
 
 			authorityResourceService.delByAuthorityId(authority.getAuthorityId());

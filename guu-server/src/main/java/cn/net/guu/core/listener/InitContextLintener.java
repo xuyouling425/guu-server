@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.common.SystemPath;
+import cn.net.guu.system.cache.AuthorityCache;
 import cn.net.guu.system.cache.ResourceCache;
 
 
@@ -46,11 +47,13 @@ public class InitContextLintener implements ServletContextListener {
 		WebCache.getInstance().init();
 		//初始化系统资源信息
 		ResourceCache.getInstance().init();
-		
+		//初始化权限信息
+		AuthorityCache.getInstance().init();
 		
 		//设置系统变量
 		event.getServletContext().setAttribute(CommonKey.WEB_CACHE, WebCache.getWebCacheMap());
 		event.getServletContext().setAttribute(CommonKey.RESOURCE_CACHE, ResourceCache.getResourceCache());
+		event.getServletContext().setAttribute(CommonKey.AUTHORITY_CACHE, AuthorityCache.getAuthorityCache());
 		
 //		System.out.println("项目Class文件路径：" + CommKey.CLASSPATH);
 //		log.info("项目部署路径：" + CommKey.WEBROOT);

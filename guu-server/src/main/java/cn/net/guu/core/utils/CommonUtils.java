@@ -1,13 +1,10 @@
 package cn.net.guu.core.utils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -213,34 +210,5 @@ public class CommonUtils
 		SimpleDateFormat sdf = new SimpleDateFormat(CommonKey.DATE_FORMAR_YYYYMMDDHHmmsss);
 		return sdf.format(new Date());
 	}
-
-	/**
-	 * 将数组转换list集合，
-	 * <p>
-	 * Title: changeList
-	 * </p>
-	 * 
-	 * @param str
-	 * @return 传入集合为空，返回null,集合里面的空也会过滤掉
-	 */
-	public static List<String> changeList(String[] str)
-	{
-		if (ArrayUtils.isEmpty(str))
-		{
-			return null;
-		} else
-		{
-			List<String> tempList = new ArrayList<String>();
-			for (String temp : str)
-			{
-				if (!StringUtils.isEmpty(temp))
-				{
-					tempList.add(temp);
-				}
-			}
-
-			return tempList;
-		}
-	}
-
+	
 }
