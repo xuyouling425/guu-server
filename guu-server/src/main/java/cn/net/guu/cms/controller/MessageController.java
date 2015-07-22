@@ -1,6 +1,7 @@
 package cn.net.guu.cms.controller;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -139,7 +140,7 @@ public class MessageController
 		// 获得前台传入的主键集合
 		String pids = request.getParameter("pids");
 		String[] pid = pids.split("-");
-		List<String> pidList = CommonUtils.changeList(pid);
+		List<String> pidList = Arrays.asList(pid);
 		// 传入值不为空
 		if (!CommonUtils.isEmpty(pidList))
 		{
