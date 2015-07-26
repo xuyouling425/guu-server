@@ -51,5 +51,5 @@ public interface SysAuthorityResourcesService extends BaseService
 	* @return
 	* @throws SQLException
 	 */
-	public List<SysAuthorityResources> queryAuResourcesByAuId(String auId) throws SQLException;
+	public List<SysAuthorityResources> selectAuResourcesByAuId(String auId) throws SQLException;
 }

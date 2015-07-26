@@ -66,7 +66,7 @@ public class SysAuthorityResourcesServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
-	public List<SysAuthorityResources> queryAuResourcesByAuId(String auId) throws SQLException
+	public List<SysAuthorityResources> selectAuResourcesByAuId(String auId) throws SQLException
 	{
 		// TODO Auto-generated method stub
 		List<SysAuthorityResources> auResourcesList = new ArrayList<SysAuthorityResources>();

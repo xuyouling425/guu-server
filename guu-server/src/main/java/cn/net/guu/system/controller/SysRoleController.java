@@ -238,7 +238,7 @@ public class SysRoleController
 			mav.addObject("role", role);
 			// 查询 角色和权限 的对应关系
 			log.info("Query the roleAuthority,the roleId is " + roleId);
-			List<SysRoleAuthority> roleAuthorities = roleAuthorityService.queryRoleAuthorityByRoleId(roleId);
+			List<SysRoleAuthority> roleAuthorities = roleAuthorityService.selectRoleAuthorityByRoleId(roleId);
 			mav.addObject("roleAuthorityList", roleAuthorities);
 
 		} catch (SQLException e)

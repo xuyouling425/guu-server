@@ -52,5 +52,5 @@ public interface SysRoleAuthorityService extends BaseService
 	* @return
 	* @throws SQLException
 	 */
-	public List<SysRoleAuthority> queryRoleAuthorityByRoleId(String roleId) throws SQLException;
+	public List<SysRoleAuthority> selectRoleAuthorityByRoleId(String roleId) throws SQLException;
 }

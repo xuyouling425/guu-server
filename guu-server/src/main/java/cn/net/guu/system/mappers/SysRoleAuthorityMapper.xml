@@ -141,7 +141,7 @@
 		#{raStatus,jdbcType=INTEGER})
 	</insert>
 	
-		<insert id="insertBatch" parameterType="cn.net.guu.system.model.SysRoleAuthority">
+		<insert id="insertBatch" parameterType="java.util.List">
 		<!--批量添加 -->
 		insert into guu_sys_role_authority (role_authority_id, role_id,
 		authority_id,

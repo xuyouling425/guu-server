@@ -119,9 +119,14 @@ public interface CommonKey
 	String CHINESE_PATTEN = "[\\u4e00-\\u9fa5]";
 
 	/**
-	 * 用户类型：team
+	 * 用户类型：TEAM（团队）
 	 */
 	String USER_TYPE_TEAM = "TEAM";
+	
+	/**
+	 * 用户类型：ADMIN（管理员）
+	 */
+	String USER_TYPE_ADMIN = "ADMIN";
 	
 	/**
 	 * 前端缓存

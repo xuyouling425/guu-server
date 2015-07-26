@@ -254,7 +254,7 @@ public class SysAuthorityController
 			mav.addObject("authority", authority);
 			// 查询权限和资源的对应关系
 			log.info("Start to query authorityResources.");
-			List<SysAuthorityResources> auResourcesList = authorityResourceService.queryAuResourcesByAuId(authorityId);
+			List<SysAuthorityResources> auResourcesList = authorityResourceService.selectAuResourcesByAuId(authorityId);
 			mav.addObject("auResList", auResourcesList);
 		} catch (SQLException e)
 		{

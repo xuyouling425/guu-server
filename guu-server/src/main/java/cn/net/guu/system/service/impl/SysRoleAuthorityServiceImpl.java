@@ -62,7 +62,7 @@ public class SysRoleAuthorityServiceImpl extends BaseServiceImpl implements SysR
 	}
 
 	@Override
-	public List<SysRoleAuthority> queryRoleAuthorityByRoleId(String roleId) throws SQLException
+	public List<SysRoleAuthority> selectRoleAuthorityByRoleId(String roleId) throws SQLException
 	{
 		// TODO Auto-generated method stub
 		SysRoleAuthorityExample example = new SysRoleAuthorityExample();
