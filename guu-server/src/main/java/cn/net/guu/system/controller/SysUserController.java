@@ -2,13 +2,14 @@ package cn.net.guu.system.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
+import cn.net.guu.core.utils.EncryptUtils;
+import cn.net.guu.core.utils.UploadUtils;
 import cn.net.guu.system.model.SysRole;
 import cn.net.guu.system.model.SysUser;
 import cn.net.guu.system.model.SysUserRole;
@@ -183,19 +186,13 @@ public class SysUserController
 	@RequestMapping("/toAdd")
 	public ModelAndView toAdd(HttpServletRequest request)
 	{
-		ModelAndView mav = new ModelAndView(ADMIN_PATH + "toAdd");
-
-		// 获取用户id
-		String userId = request.getParameter("userId");
-
+		ModelAndView mav = new ModelAndView(ADMIN_PATH + "addUser");
 		try
 		{
 			log.info("Query all roles.");
 			List<SysRole> roleList = (List<SysRole>) roleService.selectByExample(null);
 			mav.addObject("roleList", roleList);
 			log.info("Query user roles.");
-			List<SysUserRole> userRoles = userRoleService.selectUserRoleByUserId(userId);
-			mav.addObject("userRoleList", userRoles);
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
@@ -215,16 +212,29 @@ public class SysUserController
 	 * @param user
 	 * @return
 	 */
+	@RequestMapping("/add")
 	public ModelAndView addUser(HttpServletRequest request, SysUser user)
 	{
 		// ModelAndView mav = new ModelAndView(ADMIN_PATH+"add");
-
+		// ModelAndView mav = new ModelAndView("admin/about");
+		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_ADMIN_FILE_PATH);
+		user.setPhoto(imgPath);
+		user.setCreatTime(new Date());
+		//设置用户可用
+		user.setUserStatus(CommonKey.ENABLED_INT);
+		//管理员类型
+		user.setUserType(CommonKey.USER_TYPE_ADMIN);
+		String userId = CommonUtils.getPrimaryKey(CommonKey.GUU);
+		user.setUserId(userId);
+		String newPwd = EncryptUtils.encryptSalt(CommonKey.USER_DEFAULT_PASSWORD, userId);
+		user.setLoginPassword(newPwd);
+		
 		try
 		{
 			log.info("Add a user." + user);
 			userService.add(user);
 			// 获得用户的角色信息
-			String[] roleIds = request.getParameterValues("roleId");
+			String[] roleIds = request.getParameterValues("role");
 			log.info("The select role list is " + roleIds);
 
 			addUserRoleBacth(user, roleIds);
@@ -251,7 +261,7 @@ public class SysUserController
 	{
 		ModelAndView mav = new ModelAndView(ADMIN_PATH + "updateUser");
 
-		String userId = request.getParameter("userId");
+		String userId = request.getParameter("pids");
 
 		try
 		{
@@ -275,6 +285,24 @@ public class SysUserController
 	}
 
 	/**
+	 * 显示用户详情
+	 * <p>
+	 * Title: toUpdate
+	 * </p>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/view")
+	public ModelAndView viewUser(HttpServletRequest request)
+	{
+		ModelAndView view = new ModelAndView(ADMIN_PATH + "viewUser");
+		// 获得用户要查看的信息
+		toUpdate(request);
+		return view;
+	}
+
+	/**
 	 * 更新用户信息
 	 * <p>
 	 * Title: updateUser
@@ -287,13 +315,20 @@ public class SysUserController
 	@RequestMapping("/update")
 	public ModelAndView updateUser(HttpServletRequest request, SysUser user)
 	{
+		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_ADMIN_FILE_PATH);
+		if (!StringUtils.isEmpty(imgPath))
+		{
+			// 设置上传图片
+			user.setPhoto(imgPath);
+		}
+		
 		try
 		{
 			log.info("Update user,userid is " + user.getUserId());
 			userService.updateBypkSelective(user);
 			log.info("Delete user old roles .");
 			userRoleService.delUserRoleByUserId(user.getUserId());
-			String[] roleIds = request.getParameterValues("roleId");
+			String[] roleIds = request.getParameterValues("role");
 			log.info("The  user new roles id is " + roleIds);
 			addUserRoleBacth(user, roleIds);
 		} catch (SQLException e)

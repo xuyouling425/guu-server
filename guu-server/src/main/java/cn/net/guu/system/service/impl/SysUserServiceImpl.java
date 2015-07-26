@@ -78,7 +78,7 @@ public class SysUserServiceImpl extends BaseServiceImpl implements SysUserServic
 		{
 			// 用户存在，则验证用户密码
 			// 获得加密salt
-			String salt = user.getUserId().substring(CommonKey.GUU.length());
+			String salt = user.getUserId();
 			String saltPwd = EncryptUtils.encryptSalt(loginPassword, salt);
 			// 匹配密码
 			user = (saltPwd.equals(user.getLoginPassword())) ? user : null;

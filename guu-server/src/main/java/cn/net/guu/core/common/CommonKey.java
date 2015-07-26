@@ -97,6 +97,11 @@ public interface CommonKey
 	 * 图片上传路径
 	 */
 	String UPLOAD_IMAGE_PATH = "resources/uploads/images/";
+	
+	/**
+	 * 管理员上传路径
+	 */
+	String UPLOAD_ADMIN_FILE_PATH = "resources/uploads/admin/";
 
 	/**
 	 * 默认文件上传路径
@@ -133,6 +138,10 @@ public interface CommonKey
 	 */
 	String WEB_CACHE ="webCache";
 	
+	/**
+	 * 用户初始默认密码 Admin_123
+	 */
+	String USER_DEFAULT_PASSWORD = "Admin_123";
 	
 	/**
 	 * 资源缓存
