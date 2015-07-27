@@ -302,23 +302,6 @@ public class SysUserController
 		return view;
 	}
 
-	/**
-	 * 显示用户详情
-	 * <p>
-	 * Title: toUpdate
-	 * </p>
-	 * 
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/view")
-	public ModelAndView viewUser(HttpServletRequest request)
-	{
-		ModelAndView view = new ModelAndView(ADMIN_PATH + "viewUser");
-		// 获得用户要查看的信息
-		toUpdate(request);
-		return view;
-	}
 
 	/**
 	 * 更新用户信息
