@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
+import cn.net.guu.system.cache.AuthorityCache;
 import cn.net.guu.system.model.SysAuthority;
 import cn.net.guu.system.model.SysAuthorityExample;
 import cn.net.guu.system.model.SysAuthorityExample.Criteria;
@@ -146,6 +147,7 @@ public class SysAuthorityController
 			{
 				// 添加权限
 				log.info("Add an authortiy.");
+				authority.setAuthorityStatus(CommonKey.ENABLED_INT);
 				sysAuthorityService.add(authority);
 
 				// 获得复选框的资源集合
@@ -153,6 +155,9 @@ public class SysAuthorityController
 
 				log.info("The select resource list is " + resourceIds);
 				addAuthResBatch(authority, resourceIds);
+				
+				//新增权限后，刷新权限缓存
+				AuthorityCache.getInstance().refreshAuthorityCache();
 			}
 		} catch (SQLException e)
 		{
@@ -295,6 +300,9 @@ public class SysAuthorityController
 			log.info("The select resource list is " + resourceIds);
 			
 			addAuthResBatch(authority, resourceIds);
+			
+			//新增权限后，刷新权限缓存
+			AuthorityCache.getInstance().refreshAuthorityCache();
 			
 		} catch (SQLException e)
 		{

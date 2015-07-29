@@ -47,4 +47,13 @@ public interface SysUserService extends BaseService {
 	 */
 	public List<SysUser> selectUserByType(String userType) throws SQLException;
 	
+	/**
+	 * 通过用户id删除用户
+	* <p>Title: deleteUserByIds</p>
+	* @param userIdList 用户id集合
+	* @return
+	* @throws SQLException
+	 */
+	public Integer deleteUserByIds(List<String> userIdList) throws SQLException;
+	
 }

@@ -90,7 +90,7 @@ public class AuthorityCache
 	 * 查询所有的权限信息
 	* <p>Title: refreshResourceCache</p>
 	 */
-	private void refreshAuthorityCache()
+	public void refreshAuthorityCache()
 	{
 		log.info("Start to refresh the authority cache...");
 		SysAuthorityService service = SpringContextHolder.getBean("sysAuthorityServiceImpl");

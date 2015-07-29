@@ -2,6 +2,7 @@ package cn.net.guu.system.controller;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -170,7 +171,7 @@ public class SysUserController
 			// TODO Auto-generated catch block
 			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
-
+		
 		return mav;
 	}
 
@@ -220,15 +221,15 @@ public class SysUserController
 		String imgPath = UploadUtils.uploadFile(request, CommonKey.UPLOAD_ADMIN_FILE_PATH);
 		user.setPhoto(imgPath);
 		user.setCreatTime(new Date());
-		//设置用户可用
+		// 设置用户可用
 		user.setUserStatus(CommonKey.ENABLED_INT);
-		//管理员类型
+		// 管理员类型
 		user.setUserType(CommonKey.USER_TYPE_ADMIN);
 		String userId = CommonUtils.getPrimaryKey(CommonKey.GUU);
 		user.setUserId(userId);
 		String newPwd = EncryptUtils.encryptSalt(CommonKey.USER_DEFAULT_PASSWORD, userId);
 		user.setLoginPassword(newPwd);
-		
+
 		try
 		{
 			log.info("Add a user." + user);
@@ -283,7 +284,7 @@ public class SysUserController
 
 		return mav;
 	}
-	
+
 	/**
 	 * 显示用户详情
 	 * <p>
@@ -297,11 +298,10 @@ public class SysUserController
 	public ModelAndView viewUser(HttpServletRequest request)
 	{
 		ModelAndView view = new ModelAndView(ADMIN_PATH + "viewUser");
-		//获得用户要查看的信息
+		// 获得用户要查看的信息
 		toUpdate(request);
 		return view;
 	}
-
 
 	/**
 	 * 更新用户信息
@@ -322,7 +322,7 @@ public class SysUserController
 			// 设置上传图片
 			user.setPhoto(imgPath);
 		}
-		
+
 		try
 		{
 			log.info("Update user,userid is " + user.getUserId());
@@ -338,6 +338,41 @@ public class SysUserController
 			log.error("Update user failed.", e);
 			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
 		}
+		return queryAll(request);
+	}
+
+	/**
+	 * 删除用户
+	 * <p>
+	 * Title: deleteUser
+	 * </p>
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/delete")
+	public ModelAndView deleteUser(HttpServletRequest request)
+	{
+		// 获得要删除的用户主键
+		String pids = request.getParameter("pids");
+		log.info("The delete pids is " + pids);
+		String[] userIds = pids.split("-");
+
+		List<String> userIdList = Arrays.asList(userIds);
+
+		try
+		{
+			log.info("Delete the user .");
+			userService.deleteUserByIds(userIdList);
+			log.info("Delete the user roles.");
+			userRoleService.delUserRoleByUserIds(userIdList);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			log.error("Delete user failed.", e);
+			return new ModelAndView(CommonKey.ADMIN_ERROR_URL);
+		}
+		log.info("Delete user successful.");
 		return queryAll(request);
 	}
 

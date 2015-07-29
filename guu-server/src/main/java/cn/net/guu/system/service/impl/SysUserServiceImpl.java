@@ -100,4 +100,15 @@ public class SysUserServiceImpl extends BaseServiceImpl implements SysUserServic
 		return users;
 	}
 
+	@Override
+	public Integer deleteUserByIds(List<String> userIdList) throws SQLException
+	{
+		// TODO Auto-generated method stub
+		// 设置删除条件
+		SysUserExample userExample = new SysUserExample();
+		Criteria userCriteria = userExample.createCriteria();
+		userCriteria.andUserIdIn(userIdList);
+		return sysUserMapper.deleteByExample(userExample);
+	}
+
 }
