@@ -50,8 +50,8 @@ public class SysResourcesServiceImpl extends BaseServiceImpl implements
 	}
 	
 	@Override
-	public List<SysResources> selectResourcesByAuthCode(String authCode){
-		return  sysResourcesMapper.selectResourcesByAuthCode(authCode);
+	public List<SysResources> selectResourcesByAuthId(String authId){
+		return  sysResourcesMapper.selectResourcesByAuthId(authId);
 	}
 
 }

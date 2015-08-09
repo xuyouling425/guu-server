@@ -146,16 +146,14 @@
 	</select>
 
 
-	<select id="selectResourcesByAuthCode" resultMap="BaseResultMap"
+	<select id="selectResourcesByAuthId" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		<!-- 通过用户登录名，获得该用户所有的权限信息 -->
 		select
 		<include refid="Base_Column_List" />
-		from guu_sys_resources gsr where exists(
-		select 1 from guu_sys_authority gsa,guu_sys_authority_resources gsar
-		where gsa.authority_code=#{authCode} and gsa.authority_id=gsar.authority_id
-		and gsar.resources_id=gsr.resources_id
-		)
+		from guu_sys_resources gsr where gsr.resources_id in (
+		select gsar.resources_id from guu_sys_authority_resources gsar
+		where gsar.authority_id=#{authId})
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">

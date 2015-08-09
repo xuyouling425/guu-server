@@ -64,9 +64,15 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor
 	
 	public void invoke(FilterInvocation fi) throws IOException,  
     ServletException {  
-
+		// object为FilterInvocation对象  
+        // super.beforeInvocation(fi);//源码  
+        // 1.获取请求资源的权限  
+         //执行 Collection<ConfigAttribute> attributes =   
+                        //securityMetadataSource.getAttributes(fi);  
+        // 2.是否拥有权限  
+        // this.accessDecisionManager.decide(authenticated, fi, attributes);  
+        // this.accessDecisionManager.decide(authenticated, fi, attributes); 
         InterceptorStatusToken token = super.beforeInvocation(fi);  
-
         try {  
              fi.getChain().doFilter(fi.getRequest(), fi.getResponse());  
         } finally {  

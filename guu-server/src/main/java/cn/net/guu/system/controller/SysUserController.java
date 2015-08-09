@@ -21,6 +21,7 @@ import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.utils.CommonUtils;
 import cn.net.guu.core.utils.EncryptUtils;
 import cn.net.guu.core.utils.UploadUtils;
+import cn.net.guu.security.MyUserDetailsService;
 import cn.net.guu.system.model.SysRole;
 import cn.net.guu.system.model.SysUser;
 import cn.net.guu.system.model.SysUserRole;
@@ -54,6 +55,12 @@ public class SysUserController
 	 */
 	@Resource(name = "sysUserServiceImpl")
 	private SysUserService userService;
+	
+	/**
+	 * 用户鉴权
+	 */
+	@Resource(name = "myUserDetailsServiceImpl")
+	private MyUserDetailsService myUserDetailsService;
 
 	/**
 	 * 角色接口
@@ -110,7 +117,8 @@ public class SysUserController
 		{
 			try
 			{
-				SysUser user = userService.userLogin(loginUser.getLoginName(), loginUser.getLoginPassword());
+				SysUser user =(SysUser) myUserDetailsService.loadUserByUsername(loginUser.getLoginName());
+				user = userService.userLogin(loginUser.getLoginName(), loginUser.getLoginPassword());
 				if (user == null)
 				{
 					// 登录失败，到登录页面

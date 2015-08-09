@@ -26,6 +26,6 @@ public interface SysResourcesMapper extends BaseMapper {
 	* @param authCode 权限编码
 	* @return
 	 */
-public List<SysResources> selectResourcesByAuthCode(@Param(value="authCode")String authCode);
+public List<SysResources> selectResourcesByAuthId(@Param(value="authId")String authCode);
  
 }

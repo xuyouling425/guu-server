@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import cn.net.guu.core.common.CommonKey;
@@ -33,7 +36,7 @@ import cn.net.guu.system.service.SysUserService;
  * @date 2014年7月23日
  */
 @Service
-public class SysUserServiceImpl extends BaseServiceImpl implements SysUserService
+public class SysUserServiceImpl extends BaseServiceImpl implements SysUserService ,UserDetailsService
 {
 
 	/**
@@ -109,6 +112,14 @@ public class SysUserServiceImpl extends BaseServiceImpl implements SysUserServic
 		Criteria userCriteria = userExample.createCriteria();
 		userCriteria.andUserIdIn(userIdList);
 		return sysUserMapper.deleteByExample(userExample);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException
+	{
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 
 }

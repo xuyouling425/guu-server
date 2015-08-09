@@ -62,7 +62,7 @@ public class SysAuthorityServiceImpl extends BaseServiceImpl implements SysAutho
 		for (SysAuthority authority : authoritieList)
 		{
 
-			SimpleGrantedAuthority authorityImpl = new SimpleGrantedAuthority(authority.getAuthorityCode());
+			SimpleGrantedAuthority authorityImpl = new SimpleGrantedAuthority(authority.getAuthorityId());
 			auths.add(authorityImpl);
 		}
 

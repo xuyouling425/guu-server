@@ -38,7 +38,7 @@ public interface SysResourcesService extends BaseService {
 	* @return
 	* @throws SQLException
 	 */
-	public List<SysResources> selectResourcesByAuthCode(String authCode) throws SQLException;
+	public List<SysResources> selectResourcesByAuthId(String authCode) throws SQLException;
 	 
 
 }

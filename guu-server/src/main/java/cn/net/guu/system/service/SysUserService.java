@@ -15,7 +15,7 @@ import cn.net.guu.system.model.SysUser;
 * @author xurz
 * @date 2014年7月23日
  */
-public interface SysUserService extends BaseService {
+public interface SysUserService extends BaseService  {
 
 	/**
 	 * 通过登录名获得一个用户信息
