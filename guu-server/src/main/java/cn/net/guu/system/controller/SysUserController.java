@@ -56,11 +56,6 @@ public class SysUserController
 	@Resource(name = "sysUserServiceImpl")
 	private SysUserService userService;
 	
-	/**
-	 * 用户鉴权
-	 */
-	@Resource(name = "myUserDetailsServiceImpl")
-	private MyUserDetailsService myUserDetailsService;
 
 	/**
 	 * 角色接口
@@ -95,6 +90,12 @@ public class SysUserController
 	{
 		return new ModelAndView("admin/login");
 	}
+	
+	@RequestMapping(value = "/userIndex")
+	public ModelAndView adminIndex()
+	{
+		return new ModelAndView("admin/index");
+	}
 
 	/**
 	 * 后台用户登录 只允许post提交的登录请求
@@ -117,8 +118,8 @@ public class SysUserController
 		{
 			try
 			{
-				SysUser user =(SysUser) myUserDetailsService.loadUserByUsername(loginUser.getLoginName());
-				user = userService.userLogin(loginUser.getLoginName(), loginUser.getLoginPassword());
+//				SysUser user =(SysUser) myUserDetailsService.loadUserByUsername(loginUser.getLoginName());
+				SysUser	user = userService.userLogin(loginUser.getLoginName(), loginUser.getLoginPassword());
 				if (user == null)
 				{
 					// 登录失败，到登录页面

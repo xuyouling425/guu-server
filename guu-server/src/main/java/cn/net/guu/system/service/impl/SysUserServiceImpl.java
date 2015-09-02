@@ -77,15 +77,15 @@ public class SysUserServiceImpl extends BaseServiceImpl implements SysUserServic
 		// TODO Auto-generated method stub
 		// 先通过登录名获得用户
 		SysUser user = selectUserByLoginName(loginName);
-		if (user != null)
-		{
-			// 用户存在，则验证用户密码
-			// 获得加密salt
-			String salt = user.getUserId();
-			String saltPwd = EncryptUtils.encryptSalt(loginPassword, salt);
-			// 匹配密码
-			user = (saltPwd.equals(user.getLoginPassword())) ? user : null;
-		}
+//		if (user != null)
+//		{
+//			// 用户存在，则验证用户密码
+//			// 获得加密salt
+//			String salt = user.getUserId();
+//			String saltPwd = EncryptUtils.encryptSalt(loginPassword, salt);
+//			// 匹配密码
+//			user = (saltPwd.equals(user.getLoginPassword())) ? user : null;
+//		}
 		return user;
 	}
 
