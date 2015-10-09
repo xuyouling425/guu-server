@@ -192,7 +192,7 @@ public class CommonUtils
 	 */
 	public static String getPrimaryKey()
 	{
-		String pk = System.currentTimeMillis() + "" + (int) (Math.random() * 1000);
+		String pk = getDateTime() + (int) (Math.random() * 1000);
 		log.info("Generated primary key is [" + pk + "]");
 		return pk;
 	}
