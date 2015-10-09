@@ -8,16 +8,16 @@ import javax.annotation.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import cn.net.guu.security.MyUserDetailsService;
 import cn.net.guu.system.model.SysUser;
 import cn.net.guu.system.service.SysAuthorityService;
 import cn.net.guu.system.service.SysUserService;
 
 @Service
-public class MyUserDetailsServiceImpl implements MyUserDetailsService {
+public class MyUserDetailsServiceImpl implements UserDetailsService {
 
 	@Resource(name="sysUserServiceImpl")
 	private SysUserService userService;	

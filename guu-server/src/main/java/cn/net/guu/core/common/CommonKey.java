@@ -72,6 +72,8 @@ public interface CommonKey
 	 * 不可用
 	 */
 	int DISABLE_INT = 0;
+	
+
 
 	/**
 	 * 日期转换格式 “YYYY-MM-DD”
@@ -97,6 +99,36 @@ public interface CommonKey
 	 * 图片上传路径
 	 */
 	String UPLOAD_IMAGE_PATH = "resources/uploads/images/";
+	
+	/**
+	 * 图片上传路径
+	 */
+	String UPLOAD_TEMPLATE_COVER_PATH = "resources/uploads/cover/";
+	
+	/**
+	 * 模板路径
+	 */
+	String TEMPLATES_PATH = "webtemplate/";
+	
+	/**
+	 * 模板刚创建，还未审批
+	 */
+	int TEMPLATE_APPROVAL_CREATE =0;
+	
+	/**
+	 * 模板正在审批
+	 */
+	int TEMPLATE_APPROVAL_DOING=1;
+	
+	/**
+	 * 模板审批通过
+	 */
+	int TEMPLATE_APPROVAL_OK =2;
+	
+	/**
+	 * 模板审批不通过
+	 */
+	int TEMPLATE_APPROVAL_NOTOK =3;
 	
 	/**
 	 * 管理员上传路径
