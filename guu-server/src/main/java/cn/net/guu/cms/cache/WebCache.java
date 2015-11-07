@@ -19,6 +19,8 @@ import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.spring.SpringContextHolder;
 import cn.net.guu.system.model.SysUser;
 import cn.net.guu.system.service.SysUserService;
+import cn.net.guu.template.model.Template;
+import cn.net.guu.template.service.TemplateService;
 
 /**
  * 加载前台数据加载到缓存中
@@ -78,6 +80,7 @@ public class WebCache
 		refreshMessage();
 		refreshProject();
 		refreshTeam();
+		refreshTemplate();
 		log.info("End to init the webCache...");
 	}
 
@@ -177,6 +180,29 @@ public class WebCache
 		log.info("Exist refresh team cache...");
 	}
 
+	
+	/**
+	 * 刷新模板
+	 * <p>
+	 * Title: refreshTeams
+	 * </p>
+	 */
+	public void refreshTemplate()
+	{
+		log.info("Enter refresh template cache...");
+		TemplateService templateService = SpringContextHolder.getBean("templateServiceImpl");
+		// 加载团队
+		try
+		{
+			List<Template> templateList = templateService.queryByStatus(CommonKey.ENABLED_INT);
+			webCacheMap.put("templates", templateList);
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			log.error("refresh team cache faile.", e);
+		}
+		log.info("Exist refresh team cache...");
+	}
 	
 	
 	public static Map<String, Collection<?>> getWebCacheMap()

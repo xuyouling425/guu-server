@@ -52,6 +52,16 @@ public class TemplateServiceImpl extends BaseServiceImpl implements TemplateServ
 		return (List<Template>) templateMapper.selectByExample(example);
 	}
 
+	@Override
+	public List<Template> queryByStatus(Integer status) throws SQLException
+	{
+		// TODO Auto-generated method stub
+		TemplateExample example = new TemplateExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(status);
+		return (List<Template>) templateMapper.selectByExample(example);
+	}
+
 
 	
 	

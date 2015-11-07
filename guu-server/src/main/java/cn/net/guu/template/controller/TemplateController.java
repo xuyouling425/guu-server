@@ -220,7 +220,7 @@ public class TemplateController
 	@RequestMapping("/toUpdate")
 	public ModelAndView toUpdate(HttpServletRequest request)
 	{
-		ModelAndView mav = new ModelAndView(TEMPLATE_PATH+"updateTemplate");
+		ModelAndView mav = new ModelAndView(TEMPLATE_PATH+"/updateTemplate");
 		String templateId = request.getParameter("pid");
 		try
 		{

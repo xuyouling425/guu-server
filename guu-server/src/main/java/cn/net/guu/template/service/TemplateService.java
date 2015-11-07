@@ -25,4 +25,13 @@ public interface TemplateService extends BaseService
 	* @throws SQLException
 	 */
 	public List<Template> queryByUserId(String userId) throws SQLException;
+	
+	/**
+	 * 通过模板状态查询出对应的模板信息
+	* <p>Title: queryByStatus</p>
+	* @param userId
+	* @return
+	* @throws SQLException
+	 */
+	public List<Template> queryByStatus(Integer userId) throws SQLException;
 }
