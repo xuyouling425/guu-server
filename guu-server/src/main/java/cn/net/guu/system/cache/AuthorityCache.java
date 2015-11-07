@@ -16,11 +16,18 @@ import cn.net.guu.system.service.SysAuthorityService;
 
 /**
  * 权限缓存
-* <p>Title: AuthorityCache</p>
-* <p>Description: </p>
-* <p>Company: www.guu.net.cn</p>
-* @author xurz
-* @date 2015年7月22日
+ * <p>
+ * Title: AuthorityCache
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Company: www.guu.net.cn
+ * </p>
+ * 
+ * @author xurz
+ * @date 2015年7月22日
  */
 public class AuthorityCache
 {
@@ -38,7 +45,7 @@ public class AuthorityCache
 	/**
 	 * resourceCache
 	 */
-	private static  List<SysAuthority> authorityCache = new ArrayList<SysAuthority>();
+	private static List<SysAuthority> authorityCache = new ArrayList<SysAuthority>();
 
 	public static List<SysAuthority> getAuthorityCache()
 	{
@@ -88,11 +95,16 @@ public class AuthorityCache
 
 	/**
 	 * 查询所有的权限信息
-	* <p>Title: refreshResourceCache</p>
+	 * <p>
+	 * Title: refreshResourceCache
+	 * </p>
 	 */
 	public void refreshAuthorityCache()
 	{
 		log.info("Start to refresh the authority cache...");
+		// 先清除缓存，在添加
+		authorityCache.clear();
+
 		SysAuthorityService service = SpringContextHolder.getBean("sysAuthorityServiceImpl");
 		SysAuthorityExample example = new SysAuthorityExample();
 		Criteria criteria = example.createCriteria();

@@ -100,6 +100,9 @@ public class ResourceCache
 	private void resCache()
 	{
 		log.info("Start to refresh the ResourceCache...");
+		//先清除缓存，在添加
+		resourceCache.clear();
+		
 		SysResourcesService service = SpringContextHolder.getBean("sysResourcesServiceImpl");
 		SysResourcesExample example = new SysResourcesExample();
 		Criteria criteria = example.createCriteria();
