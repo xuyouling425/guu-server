@@ -10,6 +10,7 @@ import cn.net.guu.cms.cache.WebCache;
 import cn.net.guu.core.common.CommonKey;
 import cn.net.guu.core.common.SystemPath;
 import cn.net.guu.system.cache.AuthorityCache;
+import cn.net.guu.system.cache.ConfigCache;
 import cn.net.guu.system.cache.ResourceCache;
 
 
@@ -49,6 +50,8 @@ public class InitContextLintener implements ServletContextListener {
 		ResourceCache.getInstance().init();
 		//初始化权限信息
 		AuthorityCache.getInstance().init();
+		//加载配置项信息
+		ConfigCache.getInstance().init();
 		
 		//设置系统变量
 		event.getServletContext().setAttribute(CommonKey.WEB_CACHE, WebCache.getWebCacheMap());
